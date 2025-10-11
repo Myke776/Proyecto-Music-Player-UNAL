@@ -29,6 +29,7 @@ public class NavigationManager extends GridPane {
 		this.availableScenes = scenes;
 		this.currentRoute = currentRoute;
 		initializeContainers();
+		navigateTo(currentRoute);
 	}
 
 	private void initializeContainers() {
@@ -79,16 +80,16 @@ public class NavigationManager extends GridPane {
 
 		super.getRowConstraints().addAll(headerRow, mainRow, footerRow);
 		super.getColumnConstraints().addAll(leftColumn, mainColumn, rightColumn);
-		super.getChildren().addAll(headerContainer, leftContainer, mainContainer, rightContainer, footerContainer);
+		super.getChildren().addAll(this.headerContainer, this.leftContainer, this.mainContainer, this.rightContainer, this.footerContainer);
 		// super.setHgrow(this, Priority.ALWAYS);
 		// super.setVgrow(this, Priority.ALWAYS);
 
 		// Configurar estilos mínimos
-		headerContainer.setStyle("-fx-background-color: #8c00ffff;");
-		footerContainer.setStyle("-fx-background-color: #3e345eff;");
-		leftContainer.setStyle("-fx-background-color: #37502cff;");
-		rightContainer.setStyle("-fx-background-color: #2c3e50;");
-		mainContainer.setStyle("-fx-background-color: #aeff00ff;");
+		this.headerContainer.setStyle("-fx-background-color: #8c00ffff;");
+		this.leftContainer.setStyle("-fx-background-color: #37502cff;");
+		this.mainContainer.setStyle("-fx-background-color: #aeff00ff;");
+		this.rightContainer.setStyle("-fx-background-color: #2c3e50;");
+		this.footerContainer.setStyle("-fx-background-color: #3e345eff;");
 	}
 
 	public void registerScene(SceneInfo sceneInfo) {
@@ -100,7 +101,7 @@ public class NavigationManager extends GridPane {
 		if (targetScene != null) {
 			this.mainContainer.getChildren().clear();
 			this.mainContainer.getChildren().add(targetScene.getSceneLoader());
-			currentRoute = routeName;
+			this.currentRoute = routeName;
 		}
 	}
 
@@ -112,55 +113,80 @@ public class NavigationManager extends GridPane {
 		return currentRoute;
 	}
 
-	public void show(String container) {
+	public void toShow(String container) {
 		switch (container.toLowerCase()) {
 			case "header":
-				headerContainer.setVisible(true);
-				headerContainer.setManaged(true);
+				this.headerContainer.setVisible(true);
+				this.headerContainer.setManaged(true);
 				break;
 			case "footer":
-				footerContainer.setVisible(true);
-				footerContainer.setManaged(true);
+				this.footerContainer.setVisible(true);
+				this.footerContainer.setManaged(true);
 				break;
 			case "left":
-				leftContainer.setVisible(true);
-				leftContainer.setManaged(true);
+				this.leftContainer.setVisible(true);
+				this.leftContainer.setManaged(true);
 				break;
 			case "right":
-				rightContainer.setVisible(true);
-				rightContainer.setManaged(true);
+				this.rightContainer.setVisible(true);
+				this.rightContainer.setManaged(true);
 				break;
 			case "main":
-				mainContainer.setVisible(true);
-				mainContainer.setManaged(true);
+				this.mainContainer.setVisible(true);
+				this.mainContainer.setManaged(true);
 				break;
 		}
 	}
 
-	public void hide(String container) {
+	public void toHide(String container) {
 		switch (container.toLowerCase()) {
 			case "header":
-				headerContainer.setVisible(false);
-				headerContainer.setManaged(false);
+				this.headerContainer.setVisible(false);
+				this.headerContainer.setManaged(false);
 				break;
 			case "footer":
-				footerContainer.setVisible(false);
-				footerContainer.setManaged(false);
+				this.footerContainer.setVisible(false);
+				this.footerContainer.setManaged(false);
 				break;
 			case "left":
-				leftContainer.setVisible(false);
-				leftContainer.setManaged(false);
+				this.leftContainer.setVisible(false);
+				this.leftContainer.setManaged(false);
 				break;
 			case "right":
-				rightContainer.setVisible(false);
-				rightContainer.setManaged(false);
+				this.rightContainer.setVisible(false);
+				this.rightContainer.setManaged(false);
 				break;
 			case "main":
-				mainContainer.setVisible(false);
-				mainContainer.setManaged(false);
+				this.mainContainer.setVisible(false);
+				this.mainContainer.setManaged(false);
 				break;
 		}
 	}
+
+	// public void toToggleSH(String container) {
+	// 	switch (container.toLowerCase()) {
+	// 		case "header":
+	// 			this.headerContainer.setVisible();
+	// 			this.headerContainer.setManaged(false);
+	// 			break;
+	// 		case "footer":
+	// 			footerContainer.setVisible(false);
+	// 			footerContainer.setManaged(false);
+	// 			break;
+	// 		case "left":
+	// 			leftContainer.setVisible(false);
+	// 			leftContainer.setManaged(false);
+	// 			break;
+	// 		case "right":
+	// 			rightContainer.setVisible(false);
+	// 			rightContainer.setManaged(false);
+	// 			break;
+	// 		case "main":
+	// 			mainContainer.setVisible(false);
+	// 			mainContainer.setManaged(false);
+	// 			break;
+	// 	}
+	// }
 
 	public StackPane getHeaderContainer() { return headerContainer; }
     public StackPane getFooterContainer() { return footerContainer; }
