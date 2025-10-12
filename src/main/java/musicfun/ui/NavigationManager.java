@@ -1,6 +1,7 @@
 package musicfun.ui;
 
 import musicfun.model.SceneInfo;
+import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -12,13 +13,20 @@ import java.util.List;
 
 public class NavigationManager extends GridPane {
 	private List<SceneInfo> availableScenes;
-
 	private String currentRoute;
+	
 	private StackPane headerContainer;
-	private StackPane footerContainer;
 	private StackPane leftContainer;
-	private StackPane rightContainer;
 	private StackPane mainContainer;
+	private StackPane footerContainer;
+	private StackPane rightContainer;
+
+	private RowConstraints headerRowConstraints;
+	private RowConstraints mainRowConstraints;
+	private RowConstraints footerRowConstraints;
+	private ColumnConstraints leftColumnConstraints;
+	private ColumnConstraints mainColumnConstraints;
+	private ColumnConstraints rightColumnConstraints;
 
 	public NavigationManager() {
 		this.availableScenes = new ArrayList<>();
@@ -47,42 +55,29 @@ public class NavigationManager extends GridPane {
 		super.setConstraints(this.rightContainer, 2, 1);
 		super.setConstraints(this.footerContainer, 0, 2, 3, 1);
 
-		// Configurar constraints de filas para que se expandan. Ver si se expanden en
-		// todos los casos
-		RowConstraints headerRow = new RowConstraints();
-		headerRow.setPrefHeight(60);
-		headerRow.setMinHeight(60);
-		headerRow.setVgrow(Priority.NEVER);
+		// Configurar constraints de filas para que se expandan.
+		// Ver si se expanden en todos los casos
+		this.headerRowConstraints = new RowConstraints();
+		this.headerRowConstraints.setVgrow(Priority.NEVER);
 
-		ColumnConstraints leftColumn = new ColumnConstraints();
-		leftColumn.setPrefWidth(60);
-		leftColumn.setMinWidth(50);
-		leftColumn.setHgrow(Priority.NEVER);
+		this.leftColumnConstraints = new ColumnConstraints();
+		this.leftColumnConstraints.setHgrow(Priority.NEVER);
 
-		RowConstraints mainRow = new RowConstraints();
-		ColumnConstraints mainColumn = new ColumnConstraints();
-		mainRow.setVgrow(Priority.ALWAYS);
-		mainColumn.setHgrow(Priority.ALWAYS);
-		mainRow.setPrefHeight(400);
-		mainRow.setMinHeight(300);
-		mainColumn.setPrefWidth(700);
-		mainColumn.setMinWidth(500);
+		this.mainRowConstraints = new RowConstraints();
+		this.mainColumnConstraints = new ColumnConstraints();
+		this.mainRowConstraints.setVgrow(Priority.ALWAYS);
+		this.mainColumnConstraints.setHgrow(Priority.ALWAYS);
 
-		ColumnConstraints rightColumn = new ColumnConstraints();
-		rightColumn.setPrefWidth(60);
-		rightColumn.setMinWidth(50);
-		rightColumn.setHgrow(Priority.NEVER);
+		this.rightColumnConstraints = new ColumnConstraints();
+		this.rightColumnConstraints.setHgrow(Priority.NEVER);
 
-		RowConstraints footerRow = new RowConstraints();
-		footerRow.setPrefHeight(100);
-		footerRow.setMinHeight(60);
-		footerRow.setVgrow(Priority.NEVER);
+		this.footerRowConstraints = new RowConstraints();
+		this.footerRowConstraints.setVgrow(Priority.NEVER);
 
-		super.getRowConstraints().addAll(headerRow, mainRow, footerRow);
-		super.getColumnConstraints().addAll(leftColumn, mainColumn, rightColumn);
-		super.getChildren().addAll(this.headerContainer, this.leftContainer, this.mainContainer, this.rightContainer, this.footerContainer);
-		// super.setHgrow(this, Priority.ALWAYS);
-		// super.setVgrow(this, Priority.ALWAYS);
+		super.getRowConstraints().addAll(headerRowConstraints, mainRowConstraints, footerRowConstraints);
+		super.getColumnConstraints().addAll(leftColumnConstraints, mainColumnConstraints, rightColumnConstraints);
+		super.getChildren().addAll(this.headerContainer, this.leftContainer, this.mainContainer, this.rightContainer,
+				this.footerContainer);
 
 		// Configurar estilos mínimos
 		this.headerContainer.setStyle("-fx-background-color: #8c00ffff;");
@@ -90,6 +85,13 @@ public class NavigationManager extends GridPane {
 		this.mainContainer.setStyle("-fx-background-color: #aeff00ff;");
 		this.rightContainer.setStyle("-fx-background-color: #2c3e50;");
 		this.footerContainer.setStyle("-fx-background-color: #3e345eff;");
+
+		// Mostrar y ocultar contenedores.
+		toShow("main");
+		// toHide("header");
+		// toHide("right");
+		// toHide("left");
+		// toHide("footer");
 	}
 
 	public void registerScene(SceneInfo sceneInfo) {
@@ -99,8 +101,7 @@ public class NavigationManager extends GridPane {
 	public void navigateTo(String routeName) {
 		SceneInfo targetScene = findSceneByRoute(routeName);
 		if (targetScene != null) {
-			this.mainContainer.getChildren().clear();
-			this.mainContainer.getChildren().add(targetScene.getSceneLoader());
+			setContentToContainer(this.mainContainer, "main", true, targetScene.getSceneLoader());
 			this.currentRoute = routeName;
 		}
 	}
@@ -113,86 +114,129 @@ public class NavigationManager extends GridPane {
 		return currentRoute;
 	}
 
-	public void toShow(String container) {
-		switch (container.toLowerCase()) {
+	public void toShow(String nameContainer) {
+		switch (nameContainer.toLowerCase()) {
 			case "header":
 				this.headerContainer.setVisible(true);
 				this.headerContainer.setManaged(true);
+				setHeightConstraints(headerRowConstraints, 60, 50);
 				break;
 			case "footer":
 				this.footerContainer.setVisible(true);
 				this.footerContainer.setManaged(true);
+				setHeightConstraints(this.footerRowConstraints, 100, 70);
 				break;
 			case "left":
 				this.leftContainer.setVisible(true);
 				this.leftContainer.setManaged(true);
+				setWidthConstraints(leftColumnConstraints, 60, 50);
 				break;
 			case "right":
 				this.rightContainer.setVisible(true);
 				this.rightContainer.setManaged(true);
+				setWidthConstraints(rightColumnConstraints, 60, 50);
 				break;
 			case "main":
 				this.mainContainer.setVisible(true);
 				this.mainContainer.setManaged(true);
+				setWidthConstraints(this.mainColumnConstraints, 700, 500);
+				setHeightConstraints(this.mainRowConstraints, 400, 300);
 				break;
 		}
 	}
 
-	public void toHide(String container) {
-		switch (container.toLowerCase()) {
+	public void toHide(String nameContainer) {
+		switch (nameContainer.toLowerCase()) {
 			case "header":
 				this.headerContainer.setVisible(false);
 				this.headerContainer.setManaged(false);
+				setHeightConstraints(this.headerRowConstraints, 0, 0);
 				break;
 			case "footer":
 				this.footerContainer.setVisible(false);
 				this.footerContainer.setManaged(false);
+				setHeightConstraints(this.footerRowConstraints, 0, 0);
 				break;
 			case "left":
 				this.leftContainer.setVisible(false);
 				this.leftContainer.setManaged(false);
+				setWidthConstraints(this.leftColumnConstraints, 0, 0);
 				break;
 			case "right":
 				this.rightContainer.setVisible(false);
 				this.rightContainer.setManaged(false);
+				setWidthConstraints(this.rightColumnConstraints, 0, 0);
 				break;
 			case "main":
 				this.mainContainer.setVisible(false);
 				this.mainContainer.setManaged(false);
+				setWidthConstraints(this.mainColumnConstraints, 0, 0);
+				setHeightConstraints(this.mainRowConstraints, 0, 0);
 				break;
 		}
 	}
 
-	// public void toToggleSH(String container) {
-	// 	switch (container.toLowerCase()) {
-	// 		case "header":
-	// 			this.headerContainer.setVisible();
-	// 			this.headerContainer.setManaged(false);
-	// 			break;
-	// 		case "footer":
-	// 			footerContainer.setVisible(false);
-	// 			footerContainer.setManaged(false);
-	// 			break;
-	// 		case "left":
-	// 			leftContainer.setVisible(false);
-	// 			leftContainer.setManaged(false);
-	// 			break;
-	// 		case "right":
-	// 			rightContainer.setVisible(false);
-	// 			rightContainer.setManaged(false);
-	// 			break;
-	// 		case "main":
-	// 			mainContainer.setVisible(false);
-	// 			mainContainer.setManaged(false);
-	// 			break;
-	// 	}
-	// }
+	public StackPane getHeaderContainer() {
+		return headerContainer;
+	}
 
-	public StackPane getHeaderContainer() { return headerContainer; }
-    public StackPane getFooterContainer() { return footerContainer; }
-    public StackPane getLeftContainer() { return leftContainer; }
-    public StackPane getRightContainer() { return rightContainer; }
-    public StackPane getMainContainer() { return mainContainer; }
+	public StackPane getFooterContainer() {
+		return footerContainer;
+	}
+
+	public StackPane getLeftContainer() {
+		return leftContainer;
+	}
+
+	public StackPane getRightContainer() {
+		return rightContainer;
+	}
+
+	public StackPane getMainContainer() {
+		return mainContainer;
+	}
+
+	public void setHeaderContent(boolean deletePreviousContent, Node... content) {
+        setContentToContainer(headerContainer, "header", deletePreviousContent, content);
+    }
+    
+    public void setFooterContent(boolean deletePreviousContent, Node... content) {
+        setContentToContainer(footerContainer, "footer", deletePreviousContent, content);
+    }
+    
+    public void setLeftContent(boolean deletePreviousContent, Node... content) {
+        setContentToContainer(leftContainer, "left", deletePreviousContent, content);
+    }
+    
+    public void setRightContent(boolean deletePreviousContent, Node... content) {
+        setContentToContainer(rightContainer, "right", deletePreviousContent, content);
+    }
+    
+    public void setMainContent(boolean deletePreviousContent, Node... content) {
+        setContentToContainer(mainContainer, "main", deletePreviousContent, content);
+    }
+
+	private void setContentToContainer(StackPane container, String nameContainer, boolean deletePreviousContent, Node... content) {
+        if (content != null) {
+            if (deletePreviousContent) {
+				container.getChildren().clear();
+            }
+            container.getChildren().addAll(content);
+			toShow(nameContainer);
+        }
+    }
+
+
+
+	private void setWidthConstraints(ColumnConstraints columnConstraints, double prefWidth, double minWidth) {
+		columnConstraints.setPrefWidth(prefWidth);
+		columnConstraints.setMinWidth(minWidth);
+	}
+
+	private void setHeightConstraints(RowConstraints rowConstraints, double prefHeight, double minHeight) {
+		rowConstraints.setPrefHeight(prefHeight);
+		rowConstraints.setMinHeight(minHeight);
+	}
 
 	private SceneInfo findSceneByRoute(String routeName) {
 		return availableScenes.stream()
