@@ -1,6 +1,5 @@
-package musicfun.ui;
+package musicfun.model;
 
-import musicfun.model.SceneInfo;
 import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -11,10 +10,10 @@ import javafx.scene.layout.StackPane;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavigationManager extends GridPane {
-	private List<SceneInfo> availableScenes;
+public abstract class NavigationManager extends GridPane {
+	private List<SceneInfo<?>> availableScenes;
 	private String currentRoute;
-	
+
 	private StackPane headerContainer;
 	private StackPane leftContainer;
 	private StackPane mainContainer;
@@ -33,8 +32,8 @@ public class NavigationManager extends GridPane {
 		initializeContainers();
 	}
 
-	public NavigationManager(List<SceneInfo> scenes, String currentRoute) {
-		this.availableScenes = scenes;
+	public NavigationManager(String currentRoute, SceneInfo<?>... scenes) {
+		this.availableScenes = List.of(scenes);
 		this.currentRoute = currentRoute;
 		initializeContainers();
 		navigateTo(currentRoute);
@@ -58,21 +57,11 @@ public class NavigationManager extends GridPane {
 		// Configurar constraints de filas para que se expandan.
 		// Ver si se expanden en todos los casos
 		this.headerRowConstraints = new RowConstraints();
-		this.headerRowConstraints.setVgrow(Priority.NEVER);
-
 		this.leftColumnConstraints = new ColumnConstraints();
-		this.leftColumnConstraints.setHgrow(Priority.NEVER);
-
 		this.mainRowConstraints = new RowConstraints();
 		this.mainColumnConstraints = new ColumnConstraints();
-		this.mainRowConstraints.setVgrow(Priority.ALWAYS);
-		this.mainColumnConstraints.setHgrow(Priority.ALWAYS);
-
 		this.rightColumnConstraints = new ColumnConstraints();
-		this.rightColumnConstraints.setHgrow(Priority.NEVER);
-
 		this.footerRowConstraints = new RowConstraints();
-		this.footerRowConstraints.setVgrow(Priority.NEVER);
 
 		super.getRowConstraints().addAll(headerRowConstraints, mainRowConstraints, footerRowConstraints);
 		super.getColumnConstraints().addAll(leftColumnConstraints, mainColumnConstraints, rightColumnConstraints);
@@ -80,33 +69,33 @@ public class NavigationManager extends GridPane {
 				this.footerContainer);
 
 		// Configurar estilos mínimos
-		this.headerContainer.setStyle("-fx-background-color: #8c00ffff;");
-		this.leftContainer.setStyle("-fx-background-color: #37502cff;");
-		this.mainContainer.setStyle("-fx-background-color: #aeff00ff;");
-		this.rightContainer.setStyle("-fx-background-color: #2c3e50;");
-		this.footerContainer.setStyle("-fx-background-color: #3e345eff;");
+		// this.headerContainer.setStyle("-fx-background-color: #8c00ffff;");
+		// this.leftContainer.setStyle("-fx-background-color: #37502cff;");
+		// this.mainContainer.setStyle("-fx-background-color: #aeff00ff;");
+		// this.rightContainer.setStyle("-fx-background-color: #2c3e50;");
+		// this.footerContainer.setStyle("-fx-background-color: #3e345eff;");
 
 		// Mostrar y ocultar contenedores.
 		toShow("main");
-		// toHide("header");
-		// toHide("right");
-		// toHide("left");
-		// toHide("footer");
+		toHide("header");
+		toHide("right");
+		toHide("left");
+		toHide("footer");
 	}
 
-	public void registerScene(SceneInfo sceneInfo) {
+	public void registerScene(SceneInfo<Node> sceneInfo) {
 		availableScenes.add(sceneInfo);
 	}
 
 	public void navigateTo(String routeName) {
-		SceneInfo targetScene = findSceneByRoute(routeName);
+		SceneInfo<?> targetScene = findSceneByRoute(routeName);
 		if (targetScene != null) {
 			setContentToContainer(this.mainContainer, "main", true, targetScene.getSceneLoader());
 			this.currentRoute = routeName;
 		}
 	}
 
-	public List<SceneInfo> getAvailableScenes() {
+	public List<SceneInfo<?>> getAvailableScenes() {
 		return new ArrayList<>(availableScenes);
 	}
 
@@ -197,48 +186,58 @@ public class NavigationManager extends GridPane {
 	}
 
 	public void setHeaderContent(boolean deletePreviousContent, Node... content) {
-        setContentToContainer(headerContainer, "header", deletePreviousContent, content);
-    }
-    
-    public void setFooterContent(boolean deletePreviousContent, Node... content) {
-        setContentToContainer(footerContainer, "footer", deletePreviousContent, content);
-    }
-    
-    public void setLeftContent(boolean deletePreviousContent, Node... content) {
-        setContentToContainer(leftContainer, "left", deletePreviousContent, content);
-    }
-    
-    public void setRightContent(boolean deletePreviousContent, Node... content) {
-        setContentToContainer(rightContainer, "right", deletePreviousContent, content);
-    }
-    
-    public void setMainContent(boolean deletePreviousContent, Node... content) {
-        setContentToContainer(mainContainer, "main", deletePreviousContent, content);
-    }
+		setContentToContainer(headerContainer, "header", deletePreviousContent, content);
+	}
 
-	private void setContentToContainer(StackPane container, String nameContainer, boolean deletePreviousContent, Node... content) {
-        if (content != null) {
-            if (deletePreviousContent) {
+	public void setFooterContent(boolean deletePreviousContent, Node... content) {
+		setContentToContainer(footerContainer, "footer", deletePreviousContent, content);
+	}
+
+	public void setLeftContent(boolean deletePreviousContent, Node... content) {
+		setContentToContainer(leftContainer, "left", deletePreviousContent, content);
+	}
+
+	public void setRightContent(boolean deletePreviousContent, Node... content) {
+		setContentToContainer(rightContainer, "right", deletePreviousContent, content);
+	}
+
+	public void setMainContent(boolean deletePreviousContent, Node... content) {
+		setContentToContainer(mainContainer, "main", deletePreviousContent, content);
+	}
+
+	private void setContentToContainer(StackPane container, String nameContainer, boolean deletePreviousContent,
+			Node... content) {
+		if (content != null) {
+			if (deletePreviousContent) {
 				container.getChildren().clear();
-            }
-            container.getChildren().addAll(content);
+			}
+			container.getChildren().addAll(content);
 			toShow(nameContainer);
-        }
-    }
-
-
+		}
+	}
 
 	private void setWidthConstraints(ColumnConstraints columnConstraints, double prefWidth, double minWidth) {
 		columnConstraints.setPrefWidth(prefWidth);
 		columnConstraints.setMinWidth(minWidth);
+		if (prefWidth > 0 || minWidth > 0) {
+			columnConstraints.setHgrow(Priority.ALWAYS);
+		} else {
+			columnConstraints.setHgrow(Priority.NEVER);
+		}
 	}
 
 	private void setHeightConstraints(RowConstraints rowConstraints, double prefHeight, double minHeight) {
 		rowConstraints.setPrefHeight(prefHeight);
 		rowConstraints.setMinHeight(minHeight);
+
+		if (prefHeight > 0 || minHeight > 0) {
+			rowConstraints.setVgrow(Priority.ALWAYS);
+		} else {
+			rowConstraints.setVgrow(Priority.NEVER);
+		}
 	}
 
-	private SceneInfo findSceneByRoute(String routeName) {
+	private SceneInfo<?> findSceneByRoute(String routeName) {
 		return availableScenes.stream()
 				.filter(scene -> scene.getRouteName().equals(routeName))
 				.findFirst()
