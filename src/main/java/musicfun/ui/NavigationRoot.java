@@ -1,12 +1,13 @@
 package musicfun.ui;
 
-import musicfun.model.NavigationManager;
+import musicfun.service.navigation.NavigationManager;
+import musicfun.ui.views.HomeView;
+import musicfun.ui.views.Settings;
 
 public class NavigationRoot extends NavigationManager {
-
 	public NavigationRoot() {
 		super("home",
-				new Home(),
+				new HomeView(),
 				new Settings());
 	}
 }

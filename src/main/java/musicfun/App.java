@@ -3,12 +3,14 @@ package musicfun;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import musicfun.model.NavigationManager;
+import musicfun.service.navigation.Navigation;
+import musicfun.service.navigation.NavigationManager;
 import musicfun.ui.NavigationRoot;
 
 public class App extends Application {
 	private static Scene scene;
 	private static NavigationManager navigationRoot;
+	public static Navigation navigation;
 
 	@Override
 	public void init() {
@@ -20,6 +22,7 @@ public class App extends Application {
 	public void start(Stage stage) {
 		// Aqui solamente elementos de la interfaz grafica
 		navigationRoot = new NavigationRoot();
+		navigation = new Navigation(navigationRoot);
 
 		String cssPath = getClass().getResource("/styles/label.css").toExternalForm();
 		scene = new Scene(navigationRoot, Double.MAX_VALUE, Double.MAX_VALUE);
@@ -35,22 +38,8 @@ public class App extends Application {
 		// Se ejecuta cuando se cierra la app.
 	}
 
-	public static void navigateTo(String routeName) {
-		if (navigationRoot != null) {
-			navigationRoot.navigateTo(routeName);
-		}
-	}
-
-	public static void showArea(String area) {
-		if (navigationRoot != null) {
-			navigationRoot.toShow(area);
-		}
-	}
-
-	public static void hideArea(String area) {
-		if (navigationRoot != null) {
-			navigationRoot.toHide(area);
-		}
+	public static NavigationManager getNavigation() {
+		return navigationRoot;
 	}
 
 	public static void main(String[] args) {

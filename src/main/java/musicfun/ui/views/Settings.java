@@ -1,11 +1,11 @@
-package musicfun.ui;
+package musicfun.ui.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import musicfun.App;
-import musicfun.model.SceneInfo;
+import musicfun.service.navigation.SceneInfo;
 
 public class Settings extends SceneInfo<VBox> {
 
@@ -28,7 +28,7 @@ public class Settings extends SceneInfo<VBox> {
 		startButton.setStyle(
 				"-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;");
 		startButton.setOnAction(event -> {
-			App.navigateTo("home");// probando navegacion
+			App.navigation.navigateTo("home");// probando navegacion
 		});
 		scene.getChildren().addAll(title, startButton);
 	}

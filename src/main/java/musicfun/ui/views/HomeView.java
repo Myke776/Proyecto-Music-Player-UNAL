@@ -1,4 +1,4 @@
-package musicfun.ui;
+package musicfun.ui.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -6,11 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import musicfun.App;
-import musicfun.model.SceneInfo;
+import musicfun.service.navigation.SceneInfo;
 
-public class Home extends SceneInfo<VBox> {
+public class HomeView extends SceneInfo<VBox> {
 
-	public Home() {
+	public HomeView() {
 		super("Home", "home", "home", true, false, new VBox());
 		initializeUI();
 	}
@@ -29,7 +29,8 @@ public class Home extends SceneInfo<VBox> {
 		button1.setStyle(
 				"-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;");
 		button1.setOnAction(event -> {
-			App.navigateTo("settings");// probando navegacion
+			App.getNavigation().navigateTo("settings");
+			// App.navigation.navigateTo("settings");// probando navegacion
 		});
 		scene.getChildren().addAll(title, button1);
 	}
