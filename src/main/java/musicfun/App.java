@@ -4,13 +4,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import musicfun.service.navigation.Navigation;
-import musicfun.service.navigation.NavigationManager;
 import musicfun.ui.NavigationRoot;
 
 public class App extends Application {
 	private static Scene scene;
-	private static NavigationManager navigationRoot;
-	public static Navigation navigation;
+	private static NavigationRoot navigationRoot;
 
 	@Override
 	public void init() {
@@ -22,11 +20,8 @@ public class App extends Application {
 	public void start(Stage stage) {
 		// Aqui solamente elementos de la interfaz grafica
 		navigationRoot = new NavigationRoot();
-		navigation = new Navigation(navigationRoot);
 
-		String cssPath = getClass().getResource("/styles/label.css").toExternalForm();
-		scene = new Scene(navigationRoot, Double.MAX_VALUE, Double.MAX_VALUE);
-		scene.getStylesheets().add(cssPath);
+		scene = new Scene(navigationRoot.getRootScene(), Double.MAX_VALUE, Double.MAX_VALUE);
 		// The static field App.navigationRoot should be accessed in static way
 		stage.setScene(scene);
 		stage.setTitle("Music fun");
@@ -38,8 +33,8 @@ public class App extends Application {
 		// Se ejecuta cuando se cierra la app.
 	}
 
-	public static NavigationManager getNavigation() {
-		return navigationRoot;
+	public static Navigation getNavigation() {
+		return navigationRoot.getNavigation();
 	}
 
 	public static void main(String[] args) {

@@ -1,0 +1,14 @@
+.nv-left-container {
+	-fx-alignment: top-center;
+	-fx-background-size: 100;
+	-fx-padding: 20px 20px;
+}
+
+.navbar {
+    -fx-border-color: black;
+    -fx-border-width: 5px; 
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-background-color: lightgray;
+	-fx-padding: 10px 5px;
+}

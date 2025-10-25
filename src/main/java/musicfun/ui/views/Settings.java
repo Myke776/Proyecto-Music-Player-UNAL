@@ -10,7 +10,7 @@ import musicfun.service.navigation.SceneInfo;
 public class Settings extends SceneInfo<VBox> {
 
 	public Settings() {
-		super("Configuración", "settings", "settings", true, false, new VBox());
+		super("Configuración", "application-settings-gear-black-22536.png", "settings", true, false, new VBox());
 		initializeUI();
 	}
 
@@ -19,7 +19,7 @@ public class Settings extends SceneInfo<VBox> {
 		scene.setSpacing(20);
 		scene.setPadding(new Insets(40));
 		scene.setAlignment(Pos.CENTER);
-		scene.setStyle("-fx-background-color: #ffffff;");
+		// scene.setStyle("-fx-background-color: #ffffff;");
 
 		Label title = new Label("Esto es Settings");
 		title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
@@ -28,7 +28,7 @@ public class Settings extends SceneInfo<VBox> {
 		startButton.setStyle(
 				"-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;");
 		startButton.setOnAction(event -> {
-			App.navigation.navigateTo("home");// probando navegacion
+			App.getNavigation().navigateTo("home");// probando navegacion
 		});
 		scene.getChildren().addAll(title, startButton);
 	}

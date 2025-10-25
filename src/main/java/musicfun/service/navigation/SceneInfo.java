@@ -15,7 +15,7 @@ public abstract class SceneInfo<TypeScene extends Node> {
 	public SceneInfo(String title, String icon, String routeName, boolean iconVisible, boolean titleVisible,
 			TypeScene sceneLoader) {
 		this.title = title;
-		this.icon = icon.startsWith("/") ? icon : "/icon/" + icon.trim();
+		this.icon = icon.startsWith("/") ? icon : "/icons/" + icon.trim();
 		this.routeName = routeName;
 		this.iconVisible = iconVisible;
 		this.titleVisible = titleVisible;

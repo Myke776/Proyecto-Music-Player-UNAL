@@ -11,7 +11,7 @@ import musicfun.service.navigation.SceneInfo;
 public class HomeView extends SceneInfo<VBox> {
 
 	public HomeView() {
-		super("Home", "home", "home", true, false, new VBox());
+		super("Home", "home-3119.png", "home", true, false, new VBox());
 		initializeUI();
 	}
 
@@ -20,7 +20,7 @@ public class HomeView extends SceneInfo<VBox> {
 		scene.setSpacing(20);
 		scene.setPadding(new Insets(40));
 		scene.setAlignment(Pos.CENTER);
-		scene.setStyle("-fx-background-color: #ffffff;");
+		// scene.setStyle("-fx-background-color: #ffffff;");
 
 		Label title = new Label("Esto es Home");
 		title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
