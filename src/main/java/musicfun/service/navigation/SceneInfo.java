@@ -6,16 +6,16 @@ import javafx.scene.image.ImageView;
 
 public abstract class SceneInfo<TypeScene extends Node> {
 	private String title;
-	private String icon;
+	private String routeIcon;
 	private String routeName;
 	private TypeScene sceneLoader;
 	private boolean iconVisible;
 	private boolean titleVisible;
 
-	public SceneInfo(String title, String icon, String routeName, boolean iconVisible, boolean titleVisible,
+	public SceneInfo(String title, String routeIcon, String routeName, boolean iconVisible, boolean titleVisible,
 			TypeScene sceneLoader) {
 		this.title = title;
-		this.icon = icon.startsWith("/") ? icon : "/icons/" + icon.trim();
+		this.routeIcon = routeIcon.startsWith("/") ? routeIcon : "/icons/" + routeIcon.trim();
 		this.routeName = routeName;
 		this.iconVisible = iconVisible;
 		this.titleVisible = titleVisible;
@@ -27,8 +27,8 @@ public abstract class SceneInfo<TypeScene extends Node> {
 		return title;
 	}
 
-	public String getIcon() {
-		return icon;
+	public String getRouteIcon() {
+		return this.routeIcon;
 	}
 
 	public String getRouteName() {
@@ -49,14 +49,14 @@ public abstract class SceneInfo<TypeScene extends Node> {
 
 	public ImageView getIconAsImageView(double size) {
 		try {
-			Image image = new Image(getClass().getResourceAsStream(icon));
+			Image image = new Image(getClass().getResourceAsStream(this.routeIcon));
 			ImageView imageView = new ImageView(image);
 			imageView.setFitWidth(size);
 			imageView.setFitHeight(size);
 			imageView.setPreserveRatio(true);
 			return imageView;
 		} catch (Exception e) {
-			System.err.println("No se pudo cargar el icono: " + icon);
+			System.err.println("No se pudo cargar el icono: " + this.routeIcon);
 			// Fallback: crear un ImageView vacío
 			ImageView fallback = new ImageView();
 			fallback.setFitWidth(size);
