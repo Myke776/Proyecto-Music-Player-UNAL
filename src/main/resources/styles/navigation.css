@@ -11,4 +11,14 @@
     -fx-background-radius: 50%;
     -fx-background-color: lightgray;
 	-fx-padding: 10px 5px;
+	-fx-spacing: 20;
+}
+
+.btn-nav {
+	-fx-background-color: #ff000000;
+	-fx-opacity: 0.7;
+}
+
+.btn-nav-active {
+	-fx-opacity: 1;
 }
