@@ -6,12 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import musicfun.App;
-import musicfun.service.navigation.SceneInfo;
+import musicfun.ui.navigation.SceneInfo;
 
 public class PlaylistsView extends SceneInfo<VBox> {
 
 	public PlaylistsView() {
-		super("PlayList", "list-6216.png", "playlist", true, false, new VBox());
+		super("Playlists", "list-6216.png", "playlists", true, false, new VBox());
 		initializeUI();
 	}
 
@@ -20,9 +20,8 @@ public class PlaylistsView extends SceneInfo<VBox> {
 		scene.setSpacing(20);
 		scene.setPadding(new Insets(40));
 		scene.setAlignment(Pos.CENTER);
-		// scene.setStyle("-fx-background-color: #ffffff;");
 
-		Label title = new Label("Esto es Playlist");
+		Label title = new Label("Esto es Playlists");
 		title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
 
 		Button button1 = new Button("Ir a settings");

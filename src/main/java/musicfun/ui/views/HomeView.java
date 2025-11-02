@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import musicfun.App;
-import musicfun.service.navigation.SceneInfo;
+import musicfun.ui.navigation.SceneInfo;
 
 public class HomeView extends SceneInfo<VBox> {
 

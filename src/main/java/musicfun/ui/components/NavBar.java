@@ -5,28 +5,30 @@ import java.util.List;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import musicfun.service.navigation.Navigation;
-import musicfun.service.navigation.SceneInfo;
+import musicfun.ui.navigation.NavigationManager;
+import musicfun.ui.navigation.SceneInfo;
 
 public class NavBar extends VBox {
-	public NavBar(Navigation navigation) {
+	public NavBar(NavigationManager navigation) {
 		super();
 		updateNavBar(navigation);
-		navigation.getLeftContainer().getStyleClass().add("nv-left-container");
+		navigation.getgetStyleClass("left").add("nv-left-container");
 	}
 
-	public void updateNavBar(Navigation navigation) {
+	public void updateNavBar(NavigationManager navigation) {
 		String currentRute = navigation.getCurrentRoute();
 		List<SceneInfo<?>> scenes = navigation.getAvailableScenes();
 
 		super.getChildren().clear();
 		for (SceneInfo<?> sceneInfo : scenes) {
-			Button btn = this.createButton(sceneInfo, currentRute);
-			btn.setOnAction(e -> {
-				navigation.navigateTo(sceneInfo.getRouteName());
-				updateNavBar(navigation);
-			});
-			super.getChildren().add(btn);
+			if(sceneInfo.getIconVisible()) {
+				Button btn = this.createButton(sceneInfo, currentRute);
+				btn.setOnAction(e -> {
+					navigation.navigateTo(sceneInfo.getRouteName());
+					updateNavBar(navigation);
+				});
+				super.getChildren().add(btn);
+			}
 		}
 
 		super.setMaxHeight(Double.MIN_VALUE);

@@ -1,0 +1,73 @@
+package musicfun.ui.navigation;
+
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public abstract class SceneInfo  <TypeScene extends Node> {
+	protected String title;
+	protected String routeIcon;
+	protected String routeName;
+	protected TypeScene sceneLoader;
+	protected boolean iconVisible;
+	protected boolean titleVisible;
+
+	public SceneInfo(String title, String routeIcon, String routeName, boolean iconVisible, boolean titleVisible,
+			TypeScene sceneLoader) {
+		this.title = title;
+		this.routeIcon = routeIcon.startsWith("/") ? routeIcon : "/icons/" + routeIcon.trim();
+		this.routeName = routeName;
+		this.iconVisible = iconVisible;
+		this.titleVisible = titleVisible;
+		this.sceneLoader = sceneLoader;
+	}
+
+	// Getters
+	public String getTitle() {
+		return title;
+	}
+
+	public String getRouteIcon() {
+		return this.routeIcon;
+	}
+
+	public String getRouteName() {
+		return routeName;
+	}
+
+	public TypeScene getSceneLoader() {
+		return sceneLoader;
+	}
+
+	public boolean getIconVisible() {
+		return iconVisible;
+	}
+
+	public boolean getTitleVisible() {
+		return titleVisible;
+	}
+
+	public ImageView getIconAsImageView(double size) {
+		try {
+			Image image = new Image(getClass().getResourceAsStream(this.routeIcon));
+			ImageView imageView = new ImageView(image);
+			imageView.setFitWidth(size);
+			imageView.setFitHeight(size);
+			imageView.setPreserveRatio(true);
+			return imageView;
+		} catch (Exception e) {
+			System.err.println("No se pudo cargar el icono: " + this.routeIcon);
+			// Fallback: crear un ImageView vacío
+			ImageView fallback = new ImageView();
+			fallback.setFitWidth(size);
+			fallback.setFitHeight(size);
+			fallback.setStyle("-fx-background-color: #666; -fx-border-radius: 3;");
+			return fallback;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return title;
+	}
+}

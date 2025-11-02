@@ -1,21 +1,21 @@
 package musicfun.ui;
 
-import javafx.scene.layout.GridPane;
-import musicfun.service.navigation.Navigation;
+import musicfun.ui.components.GridLayoutManager;
 import musicfun.ui.components.NavBar;
+import musicfun.ui.navigation.NavigationManager;
 import musicfun.ui.views.HomeView;
 import musicfun.ui.views.PlaylistsView;
 import musicfun.ui.views.Settings;
 
-public class NavigationRoot extends Navigation {
-	public NavigationRoot() {
-		super("home",
+public class NavigationRoot extends NavigationManager {
+	public NavigationRoot(GridLayoutManager gridLayoutManager) {
+		super(gridLayoutManager,"home",
 				new HomeView(),
 				new PlaylistsView(),
 				new Settings()
 		);
 		
-		super.setContent("left", true, new NavBar(super.getNavigation()));
+		super.setContent("left", true, new NavBar(this));
 		String cssNav = getClass().getResource("/styles/navigation.css").toExternalForm();
 		super.rootScene.getStylesheets().add(cssNav);
 
@@ -23,9 +23,5 @@ public class NavigationRoot extends Navigation {
 		super.rootScene.getStylesheets().add(cssScene);
 
 		super.rootScene.getStyleClass().add("scene");
-	}
-
-	public GridPane getRootScene() {
-		return super.rootScene;
 	}
 }

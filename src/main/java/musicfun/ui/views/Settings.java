@@ -5,7 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import musicfun.App;
-import musicfun.service.navigation.SceneInfo;
+import musicfun.ui.navigation.SceneInfo;
 
 public class Settings extends SceneInfo<VBox> {
 
