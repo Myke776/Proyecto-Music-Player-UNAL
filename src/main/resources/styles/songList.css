@@ -1,0 +1,67 @@
+.song-list {
+    -fx-background-color: #12121200;
+    -fx-control-inner-background: #12121200;
+    -fx-border-color: #2a2a2a00;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+}
+.list-view,
+.list-view:focused,
+.list-cell:focused,
+.list-cell:filled:focused,
+.list-cell:filled:selected:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+
+/* Estilo para scrollbar */
+.song-list .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.song-list .thumb {
+    -fx-background-color: #444;
+    -fx-background-radius: 4px;
+}
+.song-list .thumb:hover {
+    -fx-background-color: #666;
+}
+
+
+/*Estilo de celda */
+.content-song {
+    -fx-padding: 10px 15px;
+    -fx-background-color: #99999915;
+    -fx-alignment: center-left;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+	-fx-background-radius: 10px;
+}
+.content-song:hover {
+    -fx-background-color: #00000038;
+    -fx-cursor: hand;
+}
+.list-cell:selected .content-song {
+    -fx-background-color: #00000050;
+}
+.content-song Text {
+    -fx-fill: #f0f0f0;
+	-fx-font-size: 12;
+	-fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.content-song .title {
+	-fx-font-weight: Bold;
+}
+.content-song .artist {
+	-fx-font-size: 10;
+	-fx-opacity: 0.5;
+}
+.content-song .duration {
+	-fx-font-weight: Bold;
+}

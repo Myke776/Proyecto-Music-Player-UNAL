@@ -1,8 +1,11 @@
 package musicfun;
 
+
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import musicfun.logic.LibraryManager;
 import musicfun.ui.NavigationRoot;
 import musicfun.ui.components.GridLayoutManager;
 import musicfun.ui.navigation.NavigationManager;
@@ -10,11 +13,14 @@ import musicfun.ui.navigation.NavigationManager;
 public class App extends Application {
 	private static Scene scene;
 	private static NavigationManager navigationRoot;
+	private static LibraryManager libraryManager;
 
 	@Override
 	public void init() {
 		// Este se ejecuta junto con la clase Application o constructor, sirve para
 		// validacion o carga de datos, no interfaz
+		libraryManager = new LibraryManager();
+		libraryManager.scanFolder();
 	}
 
 	@Override
@@ -27,6 +33,7 @@ public class App extends Application {
 		// The static field App.navigationRoot should be accessed in static way
 		stage.setScene(scene);
 		stage.setTitle("Music fun");
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/icons/musical-notes-10191.png")));
 		stage.show();
 	}
 
@@ -37,6 +44,10 @@ public class App extends Application {
 
 	public static NavigationManager getNavigation() {
 		return navigationRoot;
+	}
+
+	public static LibraryManager getLibraryManager() {
+		return libraryManager;
 	}
 
 	public static void main(String[] args) {

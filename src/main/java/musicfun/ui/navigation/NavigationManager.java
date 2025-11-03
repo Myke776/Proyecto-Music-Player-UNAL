@@ -56,7 +56,7 @@ public abstract class NavigationManager {
 		this.rootScene.setContent(nameContainer, deletePreviousContent, content);
 	}
 
-	public final ObservableList<String> getgetStyleClass(String nameContainer) {
+	public final ObservableList<String> getStyleClass(String nameContainer) {
 		if(nameContainer.equals("root")) {
 			return this.rootScene.getStyleClass();
 		}

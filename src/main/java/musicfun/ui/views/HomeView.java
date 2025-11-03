@@ -1,37 +1,31 @@
 package musicfun.ui.views;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import java.util.List;
+
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import musicfun.App;
+import musicfun.model.SongModel;
+import musicfun.ui.components.SongList;
 import musicfun.ui.navigation.SceneInfo;
 
-public class HomeView extends SceneInfo<VBox> {
+public class HomeView extends SceneInfo<HBox> {
 
 	public HomeView() {
-		super("Home", "home-3119.png", "home", true, false, new VBox());
+		super("Home", "home-3119.png", "home", true, false, new HBox());
 		initializeUI();
 	}
 
 	private void initializeUI() {
-		VBox scene = super.getSceneLoader();
-		scene.setSpacing(20);
-		scene.setPadding(new Insets(40));
-		scene.setAlignment(Pos.CENTER);
-		// scene.setStyle("-fx-background-color: #ffffff;");
+		HBox scene = super.getSceneLoader();
+		new Thread(() -> {
+			List<SongModel> songs = App.getLibraryManager().getAllSongs();
 
-		Label title = new Label("Esto es Home");
-		title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
-
-		Button button1 = new Button("Ir a settings");
-		button1.setStyle(
-				"-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;");
-		button1.setOnAction(event -> {
-			App.getNavigation().navigateTo("settings");
-			// App.navigation.navigateTo("settings");// probando navegacion
-		});
-		scene.getChildren().addAll(title, button1);
+			javafx.application.Platform.runLater(() -> {
+				SongList songList = new SongList(songs);
+				scene.getChildren().add(songList);
+				HBox.setHgrow(songList, Priority.ALWAYS);
+			});
+		}).start();
 	}
 }

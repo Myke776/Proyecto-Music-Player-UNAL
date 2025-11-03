@@ -12,7 +12,7 @@ public class NavBar extends VBox {
 	public NavBar(NavigationManager navigation) {
 		super();
 		updateNavBar(navigation);
-		navigation.getgetStyleClass("left").add("nv-left-container");
+		navigation.getStyleClass("left").add("nv-left-container");
 	}
 
 	public void updateNavBar(NavigationManager navigation) {
