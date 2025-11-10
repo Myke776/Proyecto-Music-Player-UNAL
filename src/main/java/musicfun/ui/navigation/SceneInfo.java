@@ -22,7 +22,6 @@ public abstract class SceneInfo  <TypeScene extends Node> {
 		this.sceneLoader = sceneLoader;
 	}
 
-	// Getters
 	public String getTitle() {
 		return title;
 	}

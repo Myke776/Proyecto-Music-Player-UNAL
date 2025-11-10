@@ -1,3 +1,18 @@
 .scene {
 	-fx-background-color: linear-gradient(to bottom, #311C40, #170E1F);
 }
+.scene Text {
+	-fx-fill: #f0f0f0;
+	-fx-font-size: 12;
+}
+.scene .text-bold {
+	-fx-font-weight: BOLD;
+}
+.scene .text-opacity {
+	-fx-font-size: 10;
+	-fx-opacity: 0.5;
+}
+
+.container-image-title-artist {
+	-fx-spacing: 10px;
+}

@@ -1,4 +1,4 @@
-package musicfun.logic;
+package musicfun.service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

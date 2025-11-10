@@ -49,19 +49,6 @@
     -fx-background-color: #00000050;
 }
 .content-song Text {
-    -fx-fill: #f0f0f0;
-	-fx-font-size: 12;
 	-fx-alignment: center;
     -fx-text-alignment: center;
-}
-
-.content-song .title {
-	-fx-font-weight: Bold;
-}
-.content-song .artist {
-	-fx-font-size: 10;
-	-fx-opacity: 0.5;
-}
-.content-song .duration {
-	-fx-font-weight: Bold;
 }

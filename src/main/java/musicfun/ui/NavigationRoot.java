@@ -1,9 +1,11 @@
 package musicfun.ui;
 
 import musicfun.ui.components.GridLayoutManager;
+import musicfun.ui.components.MusicPlayerControl;
 import musicfun.ui.components.NavBar;
 import musicfun.ui.navigation.NavigationManager;
 import musicfun.ui.views.HomeView;
+import musicfun.ui.views.MyMusic;
 import musicfun.ui.views.PlaylistsView;
 import musicfun.ui.views.Settings;
 
@@ -12,10 +14,12 @@ public class NavigationRoot extends NavigationManager {
 		super(gridLayoutManager,"home",
 				new HomeView(),
 				new PlaylistsView(),
+				new MyMusic(),
 				new Settings()
 		);
 		
 		super.setContent("left", true, new NavBar(this));
+		super.setContent("footer", true, new MusicPlayerControl());
 		String cssNav = getClass().getResource("/styles/navigation.css").toExternalForm();
 		super.rootScene.getStylesheets().add(cssNav);
 

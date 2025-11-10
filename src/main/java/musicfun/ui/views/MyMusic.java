@@ -9,10 +9,10 @@ import musicfun.model.SongModel;
 import musicfun.ui.components.SongList;
 import musicfun.ui.navigation.SceneInfo;
 
-public class HomeView extends SceneInfo<HBox> {
+public class MyMusic extends SceneInfo<HBox> {
 
-	public HomeView() {
-		super("Home", "home-3119.png", "home", true, false, new HBox());
+	public MyMusic() {
+		super("MyMusic", "music-note-10259.png", "myMusic", true, false, new HBox());
 		initializeUI();
 	}
 

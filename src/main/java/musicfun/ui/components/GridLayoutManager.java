@@ -1,5 +1,6 @@
 package musicfun.ui.components;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -14,6 +15,8 @@ public class GridLayoutManager extends GridPane {
 	protected StackPane mainContainer;
 	protected StackPane footerContainer;
 	protected StackPane rightContainer;
+	protected boolean expandHMain;
+	protected boolean expandVMain;
 
 	private RowConstraints headerRowConstraints;
 	private RowConstraints mainRowConstraints;
@@ -34,6 +37,9 @@ public class GridLayoutManager extends GridPane {
 		this.leftContainer = new StackPane();
 		this.rightContainer = new StackPane();
 		this.mainContainer = new StackPane();
+		this.expandVMain = true;
+		this.expandHMain = true;
+		super.setAlignment(Pos.CENTER);
 
 		// node/col/row/col-expan/row-expan
 		super.setConstraints(this.headerContainer, 0, 0, 3, 1);
@@ -96,8 +102,18 @@ public class GridLayoutManager extends GridPane {
 			case "main":
 				this.mainContainer.setVisible(true);
 				this.mainContainer.setManaged(true);
-				setColumnConstraints(this.mainColumnConstraints, 700, 500);
-				setRowConstraints(this.mainRowConstraints, 400, 300);
+				if(this.expandHMain) {
+					setColumnConstraints(this.mainColumnConstraints, 700, 500);
+					// setRowConstraints(this.mainRowConstraints, 400, 300);
+				}else {
+					setColumnConstraints(this.mainColumnConstraints, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+					// setRowConstraints(this.mainRowConstraints, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+				}
+				if(this.expandVMain) {
+					setRowConstraints(this.mainRowConstraints, 400, 300);
+				}else {
+					setRowConstraints(this.mainRowConstraints, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+				}
 				break;
 		}
 	}
@@ -172,6 +188,14 @@ public class GridLayoutManager extends GridPane {
 				System.err.println("El container " + nameContainer + " no existe");
 				break;
 		}
+	}
+
+	public void setExpand(boolean v, boolean h) {
+		this.expandHMain = h;
+		this.expandVMain = v;
+	}
+	public void setExpand(boolean val) {
+		this.setExpand(val, val);
 	}
 
 	private void setContentToContainer(StackPane container, String nameContainer, boolean deletePreviousContent,

@@ -14,7 +14,7 @@ public class SongList extends ListView<SongModel> {
 
 		ObservableList<SongModel> songs = FXCollections.observableArrayList(listSongs);
 		super.setItems(songs);
-		super.setCellFactory(listView -> new SongCell());
+		super.setCellFactory(listView -> new SongCell(songs));
 
 		String cssSong = getClass().getResource("/styles/songList.css").toExternalForm();
 		super.getStylesheets().add(cssSong);
