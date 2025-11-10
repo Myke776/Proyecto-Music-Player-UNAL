@@ -1,6 +1,7 @@
 .slider {
 	-fx-background-color: #ffffff51;
 	-fx-background-radius: 20;
+    -fx-cursor: hand;
 }
 .slider .track {
     -fx-background-color: #ffffff00;

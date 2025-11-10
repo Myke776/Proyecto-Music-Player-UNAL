@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Navigation {
+public abstract class Navigation_Prueba {
 	protected GridPane rootScene;
 	private List<SceneInfo<?>> availableScenes;
 	private String currentRoute;
@@ -29,13 +29,13 @@ public abstract class Navigation {
 	private ColumnConstraints mainColumnConstraints;
 	private ColumnConstraints rightColumnConstraints;
 
-	public Navigation() {
+	public Navigation_Prueba() {
 		this.rootScene = new GridPane();
 		this.availableScenes = new ArrayList<>();
 		initializeContainers();
 	}
 
-	public Navigation(String currentRoute, SceneInfo<?>... scenes) {
+	public Navigation_Prueba(String currentRoute, SceneInfo<?>... scenes) {
 		this.rootScene = new GridPane();
 		this.availableScenes = List.of(scenes);
 		this.currentRoute = currentRoute;
@@ -251,7 +251,7 @@ public abstract class Navigation {
 				.orElse(null);
 	}
 
-	public Navigation getNavigation() {
+	public Navigation_Prueba getNavigation() {
 		return this;
 	}
 }

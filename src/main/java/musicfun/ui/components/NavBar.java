@@ -13,6 +13,7 @@ public class NavBar extends VBox {
 		super();
 		updateNavBar(navigation);
 		navigation.getStyleClass("left").add("nv-left-container");
+		navigation.addListener((nav) -> this.updateNavBar(nav));
 	}
 
 	public void updateNavBar(NavigationManager navigation) {
@@ -25,7 +26,6 @@ public class NavBar extends VBox {
 				Button btn = this.createButton(sceneInfo, currentRute);
 				btn.setOnAction(e -> {
 					navigation.navigateTo(sceneInfo.getRouteName());
-					updateNavBar(navigation);
 				});
 				super.getChildren().add(btn);
 			}

@@ -1,16 +1,19 @@
 package musicfun.ui.navigation;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import musicfun.ui.components.GridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class NavigationManager {
 	protected GridLayoutManager rootScene;
-	private List<SceneInfo<?>> availableScenes;
-	private String currentRoute;
+	private List<SceneInfo<?>> availableScenes; // Aqui podriamos colocar tambien un listener
+	private StringProperty currentRoute = new SimpleStringProperty("");
 
 	public NavigationManager(GridLayoutManager gridLayoutManager) {
 		this.rootScene = gridLayoutManager;
@@ -20,19 +23,22 @@ public abstract class NavigationManager {
 	public NavigationManager(GridLayoutManager gridLayoutManager, String currentRoute, SceneInfo<?>... scenes) {
 		this.rootScene = gridLayoutManager;
 		this.availableScenes = List.of(scenes);
-		this.currentRoute = currentRoute;
+		this.currentRoute.set(currentRoute);
 		navigateTo(currentRoute);
 	}
 
 	public void registerScene(SceneInfo<Node> sceneInfo) {
 		availableScenes.add(sceneInfo);
 	}
+	public void removeScene(SceneInfo<Node> sceneInfo) {
+		availableScenes.remove(sceneInfo);
+	}
 
 	public void navigateTo(String routeName) {
 		SceneInfo<?> targetScene = findSceneByRoute(routeName);
 		if (targetScene != null) {
 			this.rootScene.setContent("main", true, targetScene.getSceneLoader());
-			this.currentRoute = routeName;
+			this.currentRoute.set(routeName);;
 		}
 	}
 
@@ -41,7 +47,7 @@ public abstract class NavigationManager {
 	}
 
 	public String getCurrentRoute() {
-		return currentRoute;
+		return currentRoute.getValue();
 	}
 
 	public void toShow(String nameContainer) {
@@ -61,6 +67,12 @@ public abstract class NavigationManager {
 			return this.rootScene.getStyleClass();
 		}
 		return this.rootScene.getContainer(nameContainer).getStyleClass();
+	}
+
+	public void addListener(Consumer<NavigationManager> listener) {
+		this.currentRoute.addListener(__ -> {
+			listener.accept(this);
+		});
 	}
 
 	private SceneInfo<?> findSceneByRoute(String routeName) {
