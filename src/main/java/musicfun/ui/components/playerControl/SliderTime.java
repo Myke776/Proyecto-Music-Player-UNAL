@@ -1,4 +1,4 @@
-package musicfun.ui.components;
+package musicfun.ui.components.playerControl;
 
 import java.util.Locale;
 

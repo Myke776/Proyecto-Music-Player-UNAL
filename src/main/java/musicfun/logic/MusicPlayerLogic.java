@@ -119,14 +119,13 @@ public class MusicPlayerLogic {
 				playerState.setRepeatMode(PlayerStateModel.RepeatMode.ONE);
 				break;
 			case ONE:
-				playerState.setRepeatMode(PlayerStateModel.RepeatMode.NONE);
+				playerState.setRepeatMode(PlayerStateModel.RepeatMode.RANDOM);
 				break;
+			case RANDOM:
+				playerState.setRepeatMode(PlayerStateModel.RepeatMode.NONE);
+			break;
 		}
 	}
-
-	// public void toggleRepeatMode() {
-	// playerState.setShuffle(!playerState.isShuffle());
-	// }
 
 	public SongModel handleSongEnd() {
 		if (playerState.getRepeatMode() == PlayerStateModel.RepeatMode.ONE) {

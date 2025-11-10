@@ -1,4 +1,4 @@
-package musicfun.ui.components;
+package musicfun.ui.components.playerControl;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -8,8 +8,8 @@ import javafx.scene.layout.VBox;
 import musicfun.ui.navigation.NavigationManager;
 import musicfun.ui.navigation.SceneInfo;
 
-public class NavBar extends VBox {
-	public NavBar(NavigationManager navigation) {
+public class NavBarRoot extends VBox {
+	public NavBarRoot(NavigationManager navigation) {
 		super();
 		updateNavBar(navigation);
 		navigation.getStyleClass("left").add("nv-left-container");

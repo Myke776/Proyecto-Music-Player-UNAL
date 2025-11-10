@@ -104,10 +104,8 @@ public class GridLayoutManager extends GridPane {
 				this.mainContainer.setManaged(true);
 				if(this.expandHMain) {
 					setColumnConstraints(this.mainColumnConstraints, 700, 500);
-					// setRowConstraints(this.mainRowConstraints, 400, 300);
 				}else {
 					setColumnConstraints(this.mainColumnConstraints, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-					// setRowConstraints(this.mainRowConstraints, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 				}
 				if(this.expandVMain) {
 					setRowConstraints(this.mainRowConstraints, 400, 300);
@@ -190,9 +188,9 @@ public class GridLayoutManager extends GridPane {
 		}
 	}
 
-	public void setExpand(boolean v, boolean h) {
-		this.expandHMain = h;
-		this.expandVMain = v;
+	public void setExpand(boolean vertical, boolean horizontal) {
+		this.expandHMain = horizontal;
+		this.expandVMain = vertical;
 	}
 	public void setExpand(boolean val) {
 		this.setExpand(val, val);
