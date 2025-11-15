@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import musicfun.App;
 import musicfun.model.SongModel;
-import musicfun.ui.components.SongList;
+import musicfun.ui.components.ListView.SongList;
 import musicfun.ui.navigation.SceneInfo;
 
 public class MyMusic extends SceneInfo<HBox> {

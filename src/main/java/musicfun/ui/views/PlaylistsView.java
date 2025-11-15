@@ -1,11 +1,12 @@
 package musicfun.ui.views;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import musicfun.App;
+import musicfun.model.SongModel;
+import musicfun.ui.components.ListView.SongList;
 import musicfun.ui.navigation.SceneInfo;
 
 public class PlaylistsView extends SceneInfo<VBox> {
@@ -17,20 +18,27 @@ public class PlaylistsView extends SceneInfo<VBox> {
 
 	private void initializeUI() {
 		VBox scene = super.getSceneLoader();
-		scene.setSpacing(20);
-		scene.setPadding(new Insets(40));
-		scene.setAlignment(Pos.CENTER);
 
-		Label title = new Label("Esto es Playlists");
-		title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
+		Text message = new Text("Playing playlist now..");
+		scene.getChildren().addAll(message);
 
-		Button button1 = new Button("Ir a settings");
-		button1.setStyle(
-				"-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;");
-		button1.setOnAction(event -> {
-			App.getNavigation().navigateTo("settings");
-			// App.navigation.navigateTo("settings");// probando navegacion
-		});
-		scene.getChildren().addAll(title, button1);
+
+		new Thread(() -> {
+			ObservableList<SongModel> songs = App.getMusicPlayer().getCurrentQueue();
+
+			javafx.application.Platform.runLater(() -> {
+				SongList songList = new SongList(songs);
+				scene.getChildren().add(songList);
+				VBox.setVgrow(songList, Priority.ALWAYS);
+
+				// App.getMusicPlayer().addListenerCurrentQueue((ev) -> {
+				// 	ObservableList<SongModel> songsL = App.getMusicPlayer().getCurrentQueue();
+				// 	songList.getItems().clear();
+				// 	songList.setItems(songsL);
+				// 	VBox.setVgrow(songList, Priority.ALWAYS);
+				// });
+
+			});
+		}).start();
 	}
 }

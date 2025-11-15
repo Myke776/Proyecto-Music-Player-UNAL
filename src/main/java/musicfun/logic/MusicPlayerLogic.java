@@ -8,6 +8,10 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -15,7 +19,7 @@ import javafx.util.Duration;
 public class MusicPlayerLogic {
 	private MediaPlayer mediaPlayer;
 	private PlayerStateModel playerState;
-	private List<SongModel> currentQueue;
+	private ListProperty<SongModel> currentQueue = new SimpleListProperty<>();
 	private int currentIndex;
 	private Random random;
 
@@ -27,8 +31,9 @@ public class MusicPlayerLogic {
 
 	public void setQueue(List<SongModel> queue) {
 		if (currentQueue == null || !currentQueue.equals(queue)) {
-			this.currentQueue = queue;
+			this.currentQueue.set(FXCollections.observableArrayList(queue));
 			this.currentIndex = -1;
+			System.out.println("cambiando lista");
 		}
 	}
 
@@ -41,7 +46,7 @@ public class MusicPlayerLogic {
 		playerState.setCurrentSong(song);
 		playerState.setPlaying(true);
 		mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
-			playerState.setCurrentTime((long) newTime.toMillis());
+			playerState.setCurrentTime((long) newTime.toSeconds());
 		});
 
 		mediaPlayer.setOnEndOfMedia(() -> {
@@ -106,7 +111,7 @@ public class MusicPlayerLogic {
 
 	public void setCurrentTime(long time) {
 		if (mediaPlayer != null) {
-			mediaPlayer.seek(Duration.millis(time));
+			mediaPlayer.seek(Duration.seconds(time));
 		}
 	}
 
@@ -142,11 +147,14 @@ public class MusicPlayerLogic {
 		return playerState;
 	}
 
-	public List<SongModel> getCurrentQueue() {
+	public ObservableList<SongModel> getCurrentQueue() {
 		return currentQueue;
 	}
-
 	public int getCurrentIndex() {
 		return currentIndex;
 	}
+
+	// public void addListenerCurrentQueue(ListChangeListener<SongModel> listener) {
+	// 	this.currentQueue.addListener(listener);
+	// }
 }

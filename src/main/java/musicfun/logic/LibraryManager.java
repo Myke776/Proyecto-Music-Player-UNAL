@@ -7,7 +7,7 @@ import musicfun.model.SongModel;
 import musicfun.service.MetadataService;
 import musicfun.service.MultimediaSearch;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,8 +36,7 @@ public class LibraryManager {
 		List<String> paths = MultimediaSearch.getWindowsAudioPaths(folders);
 
 		for (String rute : paths) {
-			File file = new File(rute);
-			SongModel song = metadataReader.readMetadata(file);
+			SongModel song = metadataReader.readMetadata(rute);
 			library.addSong(song);
 		}
 
@@ -94,6 +93,7 @@ public class LibraryManager {
 		int totalAlbums = library.getTotalAlbumCount();
 		long totalDuration = this.getSongs().stream().mapToLong(SongModel::getDuration).sum();
 
+		//Cambiar por funciones que ya se crearon en manejo de tiempo
 		long totalMinutes = totalDuration / 60000;
 		long hours = totalMinutes / 60;
 		long minutes = totalMinutes % 60;
@@ -141,6 +141,12 @@ public class LibraryManager {
 				.distinct()
 				.sorted()
 				.collect(Collectors.toList());
+	}
+
+	public List<SongModel> getRecentlyAddedSongs() {
+		List<SongModel> recentlyAdded = new ArrayList<>(this.getSongs());
+		recentlyAdded.sort(Comparator.comparing(SongModel::getCreation));
+		return recentlyAdded;
 	}
 
 	public List<SongModel> getSongs() {

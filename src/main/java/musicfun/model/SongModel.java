@@ -1,5 +1,8 @@
 package musicfun.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class SongModel {
 	private String title;
 	private String artist;
@@ -9,10 +12,12 @@ public class SongModel {
 	private String genre;
 	private String year;
 	private byte[] cover;
+	private LocalDateTime creation;
+	private LocalDateTime lastModified;
+	private static final DateTimeFormatter FORMATTER =  DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");;
 
 	public SongModel(String title, String artist, String album, String filePath, long duration, String genre,
-			String year,
-			byte[] cover) {
+			String year, byte[] cover, LocalDateTime creation, LocalDateTime lastModified) {
 		this.title = title;
 		this.artist = artist;
 		this.album = album;
@@ -21,6 +26,8 @@ public class SongModel {
 		this.genre = genre;
 		this.year = year;
 		this.cover = cover;
+		this.creation = creation;
+		this.lastModified = lastModified;
 	}
 
 	public SongModel(String filePath) {
@@ -28,6 +35,8 @@ public class SongModel {
 		this.title = "Unknown";
 		this.artist = "Unknown";
 		this.album = "Unknown";
+		this.genre =  "Unknown";
+		this.year =  "Unknown";
 	};
 
 	public String getTitle() {
@@ -62,6 +71,14 @@ public class SongModel {
 		return this.cover;
 	}
 
+	public LocalDateTime getCreation() {
+		return creation;
+	}
+
+	public LocalDateTime getLastModified() {
+		return lastModified;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -94,11 +111,32 @@ public class SongModel {
 		this.cover = cover;
 	}
 
+	public void setCreation(LocalDateTime creation) {
+		this.creation = creation;
+	}
+
+	public void setLastModified(LocalDateTime lastModified) {
+		this.lastModified = lastModified;
+	}
+
 	public String getFormattedDuration() {
-		long seconds = this.duration / 1000;
-		long minutes = seconds / 60;
-		seconds = seconds % 60;
-		return String.format("%02d:%02d", minutes, seconds);
+		long hours = this.duration / 3600;
+        long minutes = (this.duration % 3600) / 60;
+        long seconds = this.duration % 60;
+
+        if (hours > 0) {
+            return String.format("%d:%02d:%02d", hours, minutes, seconds);
+        } else {
+            return String.format("%02d:%02d", minutes, seconds);
+        }
+	}
+
+	public String getFormattedCreation() {
+		return this.creation.format(FORMATTER);
+	}
+
+	public String getFormattedLastModified() {
+		return this.lastModified.format(FORMATTER);
 	}
 
 	@Override

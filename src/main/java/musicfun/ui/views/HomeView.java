@@ -2,29 +2,29 @@ package musicfun.ui.views;
 
 import java.util.List;
 
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
 import musicfun.App;
 import musicfun.model.SongModel;
-import musicfun.ui.components.SongList;
+import musicfun.ui.components.ListView.SongList;
 import musicfun.ui.navigation.SceneInfo;
 
-public class HomeView extends SceneInfo<HBox> {
+public class HomeView extends SceneInfo<VBox> {
 
 	public HomeView() {
-		super("Home", "home-3119.png", "home", true, false, new HBox());
+		super("Home", "home-3119.png", "home", true, false, new VBox());
 		initializeUI();
 	}
 
 	private void initializeUI() {
-		HBox scene = super.getSceneLoader();
+		VBox scene = super.getSceneLoader();
 		new Thread(() -> {
-			List<SongModel> songs = App.getLibraryManager().getSongs();
-
+			List<SongModel> recentlyAddedSongs = App.getLibraryManager().getRecentlyAddedSongs();
+			// System.out.println(App.getLibraryManager().getAlbums());
 			javafx.application.Platform.runLater(() -> {
-				SongList songList = new SongList(songs);
+				SongList songList = new SongList(recentlyAddedSongs);
 				scene.getChildren().add(songList);
-				HBox.setHgrow(songList, Priority.ALWAYS);
+				VBox.setVgrow(songList, Priority.ALWAYS);
 			});
 		}).start();
 	}

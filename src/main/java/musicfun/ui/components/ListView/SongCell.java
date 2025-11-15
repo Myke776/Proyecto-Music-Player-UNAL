@@ -1,4 +1,4 @@
-package musicfun.ui.components;
+package musicfun.ui.components.ListView;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import musicfun.App;
 import musicfun.model.SongModel;
 import musicfun.service.SongService;
+import musicfun.ui.components.ContainerImageTitleArtist;
 
 public class SongCell extends ListCell<SongModel> {
 

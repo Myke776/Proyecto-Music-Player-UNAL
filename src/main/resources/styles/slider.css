@@ -1,21 +1,23 @@
 .slider {
 	-fx-background-color: #ffffff51;
 	-fx-background-radius: 20;
-    -fx-cursor: hand;
+	-fx-padding: 0;
 }
 .slider .track {
     -fx-background-color: #ffffff00;
+    /* -fx-background-color: #fb0000; */
     -fx-background-radius: 5;
-    /* -fx-padding: 3; */
+    -fx-padding: 4;
+    -fx-cursor: hand;
 }
 
 
 .slider .thumb {
     /* -fx-background-color: #ffffff; */
-    -fx-background-color: #f8f8f800;
+    /* -fx-background-color: #f8f8f800; */
     -fx-background-radius: 50%;
 	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.679), 10, 0.5, 0, 1);
-	-fx-padding: 5;
+	-fx-padding: 0;
 }
 
 

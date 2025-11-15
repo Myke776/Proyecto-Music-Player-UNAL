@@ -34,11 +34,11 @@ public class App extends Application {
         navigationRoot = new NavigationRoot(gridLayoutManager);
 
 		scene = new Scene(gridLayoutManager, Double.MAX_VALUE, Double.MAX_VALUE);
-		// The static field App.navigationRoot should be accessed in static way
 		stage.setScene(scene);
 		stage.setTitle("Music fun");
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/icons/musical-notes-10191.png")));
 		stage.show();
+		stage.centerOnScreen();
 	}
 
 	@Override
