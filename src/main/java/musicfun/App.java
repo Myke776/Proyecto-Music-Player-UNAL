@@ -1,11 +1,13 @@
 package musicfun;
 
 
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import musicfun.logic.LibraryManager;
+import musicfun.logic.LibraryLogic;
 import musicfun.logic.MusicPlayerLogic;
 import musicfun.model.PlayerStateModel;
 import musicfun.ui.NavigationRoot;
@@ -15,16 +17,19 @@ import musicfun.ui.navigation.NavigationManager;
 public class App extends Application {
 	private static Scene scene;
 	private static NavigationManager navigationRoot;
-	private static LibraryManager libraryManager;
 	private static MusicPlayerLogic musicPlayerLogic;
 
 	@Override
 	public void init() {
 		// Este se ejecuta junto con la clase Application o constructor, sirve para
 		// validacion o carga de datos, no interfaz
-		libraryManager = new LibraryManager();
+
 		musicPlayerLogic = new MusicPlayerLogic(new PlayerStateModel());
-		libraryManager.scanFolder();
+		LibraryLogic.setFolders(List.of(
+			"C:\\Users\\Oscar\\Downloads"
+		// , "C:\\Users\\Oscar\\Documents"
+		));
+		LibraryLogic.scanFolder();
 	}
 
 	@Override
@@ -48,10 +53,6 @@ public class App extends Application {
 
 	public static NavigationManager getNavigation() {
 		return navigationRoot;
-	}
-
-	public static LibraryManager getLibraryManager() {
-		return libraryManager;
 	}
 
 	public static MusicPlayerLogic getMusicPlayer() {

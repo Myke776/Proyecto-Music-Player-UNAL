@@ -1,55 +1,22 @@
 package musicfun.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class AlbumModel {
-	private String title;
+public class AlbumModel extends MusicCollection {
 	private String artist;
 	private int year;
 	private String genre;
-	private byte[] coverArt;
-	private List<SongModel> songs;
 
 	public AlbumModel() {
-		this.songs = new ArrayList<>();
+		super();
 	}
 
-	public AlbumModel(String title, String artist) {
-		this();
-		this.title = title;
+	public AlbumModel(String name, String artist) {
+		super(name);
 		this.artist = artist;
 	}
 
-	public AlbumModel(String title, String artist, int year) {
-		this(title, artist);
+	public AlbumModel(String name, String artist, int year) {
+		this(name, artist);
 		this.year = year;
-	}
-
-	public void addSong(SongModel song) {
-		if (!songs.contains(song)) {
-			songs.add(song);
-		}
-	}
-
-	public void removeSong(SongModel song) {
-		songs.remove(song);
-	}
-
-	public int getSongCount() {
-		return songs.size();
-	}
-
-	public long getTotalDuration() {
-		return songs.stream().mapToLong(SongModel::getDuration).sum();
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getArtist() {
@@ -76,23 +43,11 @@ public class AlbumModel {
 		this.genre = genre;
 	}
 
-	public byte[] getCoverArt() {
-		return coverArt;
-	}
+	@Override
+	public boolean equals(Object obj) {
+		if(!super.equals(obj)) return false;
 
-	public void setCoverArt(byte[] coverArt) {
-		this.coverArt = coverArt;
-	}
-
-	public List<SongModel> getSongs() {
-		return new ArrayList<>(songs);
-	}
-
-	public void setSongs(List<SongModel> songs) {
-		this.songs = new ArrayList<>(songs);
-	}
-
-	public boolean hasCoverArt() {
-		return coverArt != null && coverArt.length > 0;
+		AlbumModel obj2 = (AlbumModel) obj;
+		return obj2.getArtist().toLowerCase().equals(this.getArtist().toLowerCase());
 	}
 }

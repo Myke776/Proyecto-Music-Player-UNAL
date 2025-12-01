@@ -12,12 +12,11 @@ public class SongModel {
 	private String genre;
 	private String year;
 	private byte[] cover;
-	private LocalDateTime creation;
-	private LocalDateTime lastModified;
-	private static final DateTimeFormatter FORMATTER =  DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");;
+	private LocalDateTime creationDateTime;
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");;
 
 	public SongModel(String title, String artist, String album, String filePath, long duration, String genre,
-			String year, byte[] cover, LocalDateTime creation, LocalDateTime lastModified) {
+			String year, byte[] cover, LocalDateTime creationDateTime, LocalDateTime lastModified) {
 		this.title = title;
 		this.artist = artist;
 		this.album = album;
@@ -26,8 +25,7 @@ public class SongModel {
 		this.genre = genre;
 		this.year = year;
 		this.cover = cover;
-		this.creation = creation;
-		this.lastModified = lastModified;
+		this.creationDateTime = creationDateTime;
 	}
 
 	public SongModel(String filePath) {
@@ -35,8 +33,8 @@ public class SongModel {
 		this.title = "Unknown";
 		this.artist = "Unknown";
 		this.album = "Unknown";
-		this.genre =  "Unknown";
-		this.year =  "Unknown";
+		this.genre = "Unknown";
+		this.year = "Unknown";
 	};
 
 	public String getTitle() {
@@ -71,12 +69,8 @@ public class SongModel {
 		return this.cover;
 	}
 
-	public LocalDateTime getCreation() {
-		return creation;
-	}
-
-	public LocalDateTime getLastModified() {
-		return lastModified;
+	public LocalDateTime getCreationDateTime() {
+		return creationDateTime;
 	}
 
 	public void setTitle(String title) {
@@ -111,32 +105,25 @@ public class SongModel {
 		this.cover = cover;
 	}
 
-	public void setCreation(LocalDateTime creation) {
-		this.creation = creation;
-	}
-
-	public void setLastModified(LocalDateTime lastModified) {
-		this.lastModified = lastModified;
+	public void setCreationDateTime(LocalDateTime creationDateTime) {
+		this.creationDateTime = creationDateTime;
 	}
 
 	public String getFormattedDuration() {
+		//Cambiar por servicion, asi se recicla codigo
 		long hours = this.duration / 3600;
-        long minutes = (this.duration % 3600) / 60;
-        long seconds = this.duration % 60;
+		long minutes = (this.duration % 3600) / 60;
+		long seconds = this.duration % 60;
 
-        if (hours > 0) {
-            return String.format("%d:%02d:%02d", hours, minutes, seconds);
-        } else {
-            return String.format("%02d:%02d", minutes, seconds);
-        }
+		if (hours > 0) {
+			return String.format("%d:%02d:%02d", hours, minutes, seconds);
+		} else {
+			return String.format("%02d:%02d", minutes, seconds);
+		}
 	}
 
-	public String getFormattedCreation() {
-		return this.creation.format(FORMATTER);
-	}
-
-	public String getFormattedLastModified() {
-		return this.lastModified.format(FORMATTER);
+	public String getFormattedCreationDateTime() {
+		return this.creationDateTime.format(FORMATTER);
 	}
 
 	@Override

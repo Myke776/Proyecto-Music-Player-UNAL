@@ -33,7 +33,6 @@ public class MusicPlayerLogic {
 		if (currentQueue == null || !currentQueue.equals(queue)) {
 			this.currentQueue.set(FXCollections.observableArrayList(queue));
 			this.currentIndex = -1;
-			System.out.println("cambiando lista");
 		}
 	}
 
@@ -53,6 +52,7 @@ public class MusicPlayerLogic {
 			handleSongEnd();
 		});
 		this.currentIndex = currentQueue.indexOf(song);
+		LibraryLogic.markSongAsPlayed(song);
 	}
 
 	public SongModel playNext() {

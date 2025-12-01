@@ -1,4 +1,4 @@
-.song-list {
+.list-view {
     -fx-background-color: #12121200;
     -fx-control-inner-background: #12121200;
     -fx-border-color: #2a2a2a00;
@@ -18,37 +18,44 @@
     -fx-border-color: transparent;
 }
 
-
+/**************************/
 /* Estilo para scrollbar */
-.song-list .scroll-bar:vertical {
+/************************/
+.list-view .scroll-bar:vertical {
     -fx-background-color: transparent;
 }
-.song-list .thumb {
+.list-view .thumb {
     -fx-background-color: #444;
     -fx-background-radius: 4px;
 }
-.song-list .thumb:hover {
+.list-view .thumb:hover {
     -fx-background-color: #666;
 }
 
-
+/**************************/
 /*Estilo de celda */
-.content-song {
-    -fx-padding: 10px 15px;
+/**************************/
+
+.list-cell > HBox, .list-cell > VBox {
+	-fx-padding: 10px 15px;
     -fx-background-color: #99999915;
     -fx-alignment: center-left;
     -fx-text-fill: white;
     -fx-font-size: 14px;
 	-fx-background-radius: 10px;
 }
-.content-song:hover {
-    -fx-background-color: #00000038;
+
+
+.list-cell > HBox:hover, .list-cell > VBox:hover {
+	-fx-backgrou0nd-color: #00000038;
     -fx-cursor: hand;
 }
-.list-cell:selected .content-song {
+
+.list-cell::selected > HBox, .list-cell::selected > VBox {
     -fx-background-color: #00000050;
 }
-.content-song Text {
+
+.list-cell Text {
 	-fx-alignment: center;
     -fx-text-alignment: center;
 }

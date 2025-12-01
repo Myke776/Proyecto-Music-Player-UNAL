@@ -58,10 +58,9 @@ public class MetadataService {
 				BasicFileAttributes attrs = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
 
 				LocalDateTime creationTime = LocalDateTime.ofInstant(attrs.creationTime().toInstant(), ZoneId.systemDefault());
-				LocalDateTime lastModifiedTime = LocalDateTime.ofInstant(attrs.lastModifiedTime().toInstant(), ZoneId.systemDefault());
+				// LocalDateTime lastModifiedTime = LocalDateTime.ofInstant(attrs.lastModifiedTime().toInstant(), ZoneId.systemDefault());
 
-				song.setCreation(creationTime);
-				song.setLastModified(lastModifiedTime);
+				song.setCreationDateTime(creationTime);
 			} catch (Exception e) {
 				System.out.println("Error al obtener la fecha " + file.getName());
 			}

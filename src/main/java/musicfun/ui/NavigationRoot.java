@@ -26,6 +26,9 @@ public class NavigationRoot extends NavigationManager {
 		String cssScene = getClass().getResource("/styles/scene.css").toExternalForm();
 		super.rootScene.getStylesheets().add(cssScene);
 
+		String cssListView = getClass().getResource("/styles/listView.css").toExternalForm();
+		super.rootScene.getStylesheets().add(cssListView);
+
 		super.rootScene.getStyleClass().add("scene");
 	}
 }

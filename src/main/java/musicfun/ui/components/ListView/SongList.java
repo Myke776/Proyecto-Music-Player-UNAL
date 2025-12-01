@@ -1,7 +1,7 @@
 package musicfun.ui.components.ListView;
 
 import java.util.List;
-
+// 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -12,7 +12,7 @@ public class SongList extends ListView<SongModel> {
 	public SongList(ObservableList<SongModel> listSongs) {
 		super();
 		// ObservableList<SongModel> songs = FXCollections.observableArrayList(listSongs);
-		this.createListView(listSongs);		
+		this.createListView(listSongs);
 	}
 
 	public SongList(List<SongModel> listSongs) {
@@ -23,10 +23,5 @@ public class SongList extends ListView<SongModel> {
 	private void createListView(ObservableList<SongModel> listSongs) {
 		super.setItems(listSongs);
 		super.setCellFactory(listView -> new SongCell(listSongs));
-
-		String cssSong = getClass().getResource("/styles/songList.css").toExternalForm();
-		super.getStylesheets().add(cssSong);
-
-		super.getStyleClass().add("song-list");
 	}
 }

@@ -1,99 +1,38 @@
 package musicfun.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class PlaylistModel {
+import javafx.collections.ObservableList;
+
+public class PlaylistModel extends MusicCollection {
 	private String id;
-	private String name;
-	private String description;
-	private List<SongModel> songs;
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;
 
-	public PlaylistModel() {
-		this.songs = new ArrayList<>();
+	public PlaylistModel(String id, String name, String description, ObservableList<SongModel> songs,
+			LocalDateTime createdDate, LocalDateTime modifiedDate) {
+		super(name, description, songs);
+		this.id = id;
+		this.createdDate = createdDate;
+		this.modifiedDate = modifiedDate;
+	}
+
+	public PlaylistModel(String name, String description) {
+		super(name, description);
+		String id = UUID.randomUUID().toString();
+		this.id = id;
 		this.createdDate = LocalDateTime.now();
 		this.modifiedDate = LocalDateTime.now();
 	}
 
 	public PlaylistModel(String name) {
-		this();
-		this.name = name;
-	}
-
-	public PlaylistModel(String name, String description) {
-		this();
-		this.name = name;
-		this.description = description;
-	}
-
-	public void addSong(SongModel song) {
-		if (!songs.contains(song)) {
-			songs.add(song);
-			modifiedDate = LocalDateTime.now();
-		}
-	}
-
-	public void removeSong(SongModel song) {
-		if (this.songs.remove(song)) {
-			this.modifiedDate = LocalDateTime.now();
-		}
-	}
-
-	public void removeSong(int index) {
-		if (index >= 0 && index < this.songs.size()) {
-			this.songs.remove(index);
-			this.modifiedDate = LocalDateTime.now();
-		}
-	}
-
-	public boolean containsSong(SongModel song) {
-		return this.songs.contains(song);
-	}
-
-	public int getSongCount() {
-		return this.songs.size();
-	}
-
-	public long getTotalDuration() {
-		return this.songs.stream().mapToLong(SongModel::getDuration).sum();
+		this(name, "");
 	}
 
 	public String getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-		this.modifiedDate = LocalDateTime.now();
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-		this.modifiedDate = LocalDateTime.now();
-	}
-
-	public List<SongModel> getSongs() {
-		return new ArrayList<>(songs);
-	}
-
-	public void setSongs(List<SongModel> songs) {
-		this.songs = new ArrayList<>(songs);
-		this.modifiedDate = LocalDateTime.now();
 	}
 
 	public LocalDateTime getCreatedDate() {
@@ -102,5 +41,36 @@ public class PlaylistModel {
 
 	public LocalDateTime getModifiedDate() {
 		return modifiedDate;
+	}
+
+	@Override
+	protected void onSongAdded(SongModel song) {
+		modifiedDate = LocalDateTime.now();
+	}
+
+	@Override
+	protected void onSongRemoved(SongModel song) {
+		modifiedDate = LocalDateTime.now();
+	}
+
+	@Override
+	protected void onSongsClear() {
+		modifiedDate = LocalDateTime.now();
+	}
+
+	@Override
+	protected void onSongsSet(List<SongModel> songs) {
+		modifiedDate = LocalDateTime.now();
+	}
+
+	@Override
+	protected void onName(String name) {
+		modifiedDate = LocalDateTime.now();
+
+	}
+
+	@Override
+	protected void onDescription(String description) {
+		modifiedDate = LocalDateTime.now();
 	}
 }
