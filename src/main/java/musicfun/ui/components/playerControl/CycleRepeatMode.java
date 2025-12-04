@@ -11,10 +11,8 @@ public class CycleRepeatMode extends Button {
 	private ImageView imageView;
 	private Text text;
 
-	private static final Image SHUFFLE = new Image(
-			ContainerButtons.class.getResourceAsStream("/icons/shuffle-arrows-2831.png"));
 	private static final Image REPEAT = new Image(
-			ContainerButtons.class.getResourceAsStream("/icons/convert-3210.png"));
+			CycleRepeatMode.class.getResourceAsStream("/icons/convert-3210.png"));
 
 	public CycleRepeatMode() {
 		super();
@@ -27,6 +25,7 @@ public class CycleRepeatMode extends Button {
 				case NONE:
 					imageView.setImage(REPEAT);
 					imageView.setStyle("-fx-opacity: 0.5;");
+					text.setText("");
 					break;
 				case ALL:
 					imageView.setStyle("-fx-opacity: 1;");
@@ -34,19 +33,14 @@ public class CycleRepeatMode extends Button {
 				case ONE:
 					text.setText("1");
 					break;
-				default:
-					imageView.setImage(SHUFFLE);
-					text.setText("");
-					break;
 			}
-			System.out.println(newMode);
 		});
 
 		super.setOnAction(e -> {
-			App.getMusicPlayer().cycleRepeatMode();
+			App.getMusicPlayer().toggleCycleRepeatMode();
 		});
 
-		double size = 30;
+		double size = 25;
 		this.imageView.setFitHeight(size);
 		this.imageView.setFitWidth(size);
 		text.getStyleClass().add("text-bold");

@@ -2,6 +2,7 @@ package musicfun.ui.components.ListView;
 
 import java.util.List;
 
+import javafx.geometry.Orientation;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -9,22 +10,24 @@ import javafx.scene.text.Text;
 import musicfun.App;
 import musicfun.model.SongModel;
 import musicfun.service.SongService;
-import musicfun.ui.components.ContainerImageTitleArtist;
+import musicfun.ui.components.ContainerImageTitleText;
 
-public class SongCell extends ListCell<SongModel> {
+public class CellSong extends ListCell<SongModel> {
 
 	private HBox contentMain = new HBox(10);
-	private ContainerImageTitleArtist containerTitleAndArtist = new ContainerImageTitleArtist();
+	private ContainerImageTitleText containerTitleAndArtist;
 	private Text duration = new Text();
 
-	public SongCell(List<SongModel> parentList) {
+	public CellSong(List<SongModel> parentList, double sizeImage, Orientation orientationCell) {
+		containerTitleAndArtist = new ContainerImageTitleText(sizeImage, orientationCell);
 		this.contentMain.getChildren().addAll(this.containerTitleAndArtist, this.duration);
-
-		this.contentMain.getStyleClass().add("content-cell");
+		
+		if(orientationCell == Orientation.HORIZONTAL){
+			HBox.setHgrow(containerTitleAndArtist, Priority.ALWAYS);
+			HBox.setHgrow(duration, Priority.ALWAYS);
+		}else {
+		}
 		this.duration.getStyleClass().add("text-bold");
-
-		HBox.setHgrow(containerTitleAndArtist, Priority.ALWAYS);
-		HBox.setHgrow(duration, Priority.ALWAYS);
 
 		setOnMouseClicked(event -> {
 			if (!isEmpty() && getItem() != null) {

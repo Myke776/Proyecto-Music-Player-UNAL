@@ -65,6 +65,8 @@ public abstract class SceneInfo  <TypeScene extends Node> {
 		}
 	}
 
+	public <T> void setParams(T oparams) {}
+
 	@Override
 	public String toString() {
 		return title;

@@ -9,9 +9,10 @@ public class PlayerStateModel {
 	private final LongProperty currentTime = new SimpleLongProperty(0);
 	private final DoubleProperty volume = new SimpleDoubleProperty(0.5);
 	private final ObjectProperty<RepeatMode> repeatMode = new SimpleObjectProperty<>(RepeatMode.ALL);
+	private final BooleanProperty shuffle = new SimpleBooleanProperty(false);
 
 	public enum RepeatMode {
-		NONE, ONE, ALL, RANDOM
+		NONE, ONE, ALL
 	}
 
 	public enum Variable {
@@ -58,6 +59,14 @@ public class PlayerStateModel {
 		this.repeatMode.set(value);
 	}
 
+	public boolean getShuffle() {
+		return shuffle.get();
+	}
+
+	public void setShuffle(boolean state) {
+		shuffle.set(state);
+	}
+
 	public void  addListenerCurrentSong(ChangeListener<SongModel> listener) {
 		this.currentSong.addListener(listener);
 	}
@@ -76,6 +85,10 @@ public class PlayerStateModel {
 
 	public void addListenerRepeatMode(ChangeListener<RepeatMode> listener) {
 		this.repeatMode.addListener(listener);
+	}
+
+	public void addListenerShuffle(ChangeListener<Boolean> listner) {
+		this.shuffle.addListener(listner);
 	}
 
 	@Override

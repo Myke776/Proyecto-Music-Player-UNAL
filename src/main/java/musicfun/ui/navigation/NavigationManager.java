@@ -34,6 +34,15 @@ public abstract class NavigationManager {
 		availableScenes.remove(sceneInfo);
 	}
 
+	public <T> void navigateTo (String routeName, T params) {
+		SceneInfo<?> targetScene = findSceneByRoute(routeName);
+		if (targetScene != null) {
+			targetScene.setParams(params);
+			this.rootScene.setContent("main", true, targetScene.getSceneLoader());
+			this.currentRoute.set(routeName);;
+		}
+	}
+
 	public void navigateTo(String routeName) {
 		SceneInfo<?> targetScene = findSceneByRoute(routeName);
 		if (targetScene != null) {

@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import musicfun.model.LibraryModel;
 import musicfun.model.SongModel;
-import musicfun.ui.components.ListView.SongList;
+import musicfun.ui.components.ListView.ListSong;
 import musicfun.ui.navigation.SceneInfo;
 
 public class MyMusic extends SceneInfo<HBox> {
@@ -22,7 +22,7 @@ public class MyMusic extends SceneInfo<HBox> {
 			List<SongModel> songs = LibraryModel.getSongs();
 
 			javafx.application.Platform.runLater(() -> {
-				SongList songList = new SongList(songs);
+				ListSong songList = new ListSong(songs);
 				scene.getChildren().add(songList);
 				HBox.setHgrow(songList, Priority.ALWAYS);
 			});

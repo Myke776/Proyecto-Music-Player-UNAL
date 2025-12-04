@@ -5,6 +5,13 @@
 	-fx-fill: #f0f0f0;
 	-fx-font-size: 12;
 }
+
+.scene Label {
+	-fx-text-fill: #f0f0f0;
+	-fx-font-size: 14;
+	-fx-font-weight: BOLD;
+}
+
 .scene .text-bold {
 	-fx-font-weight: BOLD;
 }
@@ -13,6 +20,6 @@
 	-fx-opacity: 0.5;
 }
 
-.container-image-title-artist {
-	-fx-spacing: 10px;
+.button:hover {
+	-fx-cursor: hand;
 }

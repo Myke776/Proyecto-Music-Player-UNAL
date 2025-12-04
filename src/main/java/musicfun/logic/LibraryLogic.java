@@ -91,13 +91,11 @@ public class LibraryLogic {
 
 		// Ver luego como colocarla en un metodo aparte, para poder mejorar la lista de
 		// musica.
-		int startIndex;
 		if (limit < 0) {
-			startIndex = 0;
-		} else {
-			startIndex = Math.max(0, recentlyAdded.size() - limit);
+			return recentlyAdded;
 		}
 
+		int startIndex = Math.max(0, recentlyAdded.size() - limit);
 		return recentlyAdded.subList(startIndex, allSongs.size());
 	}
 

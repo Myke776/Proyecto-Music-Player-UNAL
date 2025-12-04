@@ -2,7 +2,6 @@ package musicfun.logic;
 
 import musicfun.model.PlayerStateModel;
 import musicfun.model.SongModel;
-import musicfun.model.PlayerStateModel.RepeatMode;
 
 import java.io.File;
 import java.util.List;
@@ -60,7 +59,7 @@ public class MusicPlayerLogic {
 			return null;
 		}
 
-		if (playerState.getRepeatMode() == RepeatMode.RANDOM) {
+		if (playerState.getShuffle()) {
 			currentIndex = random.nextInt(currentQueue.size());
 		} else {
 			currentIndex = (currentIndex + 1) % currentQueue.size();
@@ -76,7 +75,7 @@ public class MusicPlayerLogic {
 			return null;
 		}
 
-		if (playerState.getRepeatMode() == RepeatMode.RANDOM) {
+		if (playerState.getShuffle()) {
 			currentIndex = random.nextInt(currentQueue.size());
 		} else {
 			currentIndex = (currentIndex - 1 + currentQueue.size()) % currentQueue.size();
@@ -115,7 +114,7 @@ public class MusicPlayerLogic {
 		}
 	}
 
-	public void cycleRepeatMode() {
+	public void toggleCycleRepeatMode() {
 		switch (playerState.getRepeatMode()) {
 			case NONE:
 				playerState.setRepeatMode(PlayerStateModel.RepeatMode.ALL);
@@ -124,12 +123,13 @@ public class MusicPlayerLogic {
 				playerState.setRepeatMode(PlayerStateModel.RepeatMode.ONE);
 				break;
 			case ONE:
-				playerState.setRepeatMode(PlayerStateModel.RepeatMode.RANDOM);
-				break;
-			case RANDOM:
 				playerState.setRepeatMode(PlayerStateModel.RepeatMode.NONE);
-			break;
+				break;
 		}
+	}
+
+	public void toggleShuffleMode() {
+		playerState.setShuffle(!playerState.getShuffle());
 	}
 
 	public SongModel handleSongEnd() {
