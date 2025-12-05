@@ -50,7 +50,6 @@ public class HomeView extends SceneInfo<VBox> {
 		VBox container3 = new VBox(labelRecentlyPlayedArtists, recentlyArtistsList);
 		horizontalContainer.getChildren().addAll(container1, container2, container3);
 
-		VBox.setVgrow(recentlyPlayedSongsList, Priority.NEVER);
 		VBox.setVgrow(horizontalContainer, Priority.ALWAYS);
 
 		HBox.setHgrow(container1, Priority.ALWAYS);
