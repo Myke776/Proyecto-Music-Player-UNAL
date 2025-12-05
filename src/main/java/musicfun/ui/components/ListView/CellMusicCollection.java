@@ -36,7 +36,7 @@ public class CellMusicCollection <Collection extends MusicCollection> extends Li
 
 		setOnMouseClicked(event -> {
 			if (!isEmpty() && getItem() != null) {
-				App.getNavigation().navigateTo("musicCollection", parentList); // crear ventana de MusicCollection
+				App.getNavigation().navigateTo("musicCollection", super.getItem()); // crear ventana de MusicCollection
 			}
 		});
 	}

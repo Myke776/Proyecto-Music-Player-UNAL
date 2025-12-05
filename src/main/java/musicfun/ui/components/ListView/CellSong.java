@@ -49,6 +49,10 @@ public class CellSong extends ListCell<SongModel> {
 				App.getMusicPlayer().playSong(getItem());
 			}
 		});
+
+		addSongToPlaylist.setOnAction(__ -> {
+				new AddSongToPlaylist(super.getItem());
+			});
 	}
 
 	@Override
@@ -63,11 +67,6 @@ public class CellSong extends ListCell<SongModel> {
 
 			this.duration.setText(song.getFormattedDuration());
 			super.setGraphic(this.contentMain);
-
-
-			addSongToPlaylist.setOnAction(__ -> {
-				new AddSongToPlaylist(song);
-			});
 		}
 	}
 }

@@ -71,7 +71,7 @@ public abstract class SceneInfo<TypeScene extends Node> {
 		}
 	}
 
-	public <T> void setParams(T oparams) {
+	public <TypeParam extends Object> void setParams(TypeParam value) {
 	}
 
 	abstract protected void initializeUI(TypeScene scene);

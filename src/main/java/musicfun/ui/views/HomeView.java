@@ -58,6 +58,6 @@ public class HomeView extends SceneInfo<VBox> {
 		HBox.setHgrow(container3, Priority.ALWAYS);
 		scene.getChildren().addAll(labelAddedSongs, recentlyAddedSongsList, horizontalContainer);
 		scene.setSpacing(10);
-		scene.setStyle("-fx-padding: 20 0;");
+		scene.setStyle("-fx-padding: 20 0 0 0;");
 	}
 }
