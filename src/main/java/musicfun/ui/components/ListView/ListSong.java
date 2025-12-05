@@ -1,4 +1,4 @@
-package musicfun.ui.components.ListView;
+package musicfun.ui.components.listView;
 
 import java.util.List;
 import javafx.collections.FXCollections;

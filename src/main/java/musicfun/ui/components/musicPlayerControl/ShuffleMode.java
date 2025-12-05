@@ -1,4 +1,4 @@
-package musicfun.ui.components.playerControl;
+package musicfun.ui.components.musicPlayerControl;
 
 import musicfun.App;
 import musicfun.ui.components.ButtonImage;

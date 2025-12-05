@@ -36,7 +36,7 @@
 /*Estilo de celda */
 /**************************/
 
-.list-cell > HBox, .list-cell > VBox {
+.list-cell > * {
 	-fx-padding: 10px 15px;
     -fx-background-color: #99999915;
     -fx-alignment: center-left;
@@ -46,16 +46,25 @@
 }
 
 
-.list-cell > HBox:hover, .list-cell > VBox:hover {
-	-fx-backgrou0nd-color: #00000038;
+.list-cell > *:hover {
+	-fx-background-color: #00000038;
     -fx-cursor: hand;
 }
 
-.list-cell::selected > HBox, .list-cell::selected > VBox {
+.list-cell::selected > *, .list-cell::selected > * {
     -fx-background-color: #00000050;
 }
 
 .list-cell Text {
 	-fx-alignment: center;
     -fx-text-alignment: center;
+}
+
+.list-cell .button {
+	-fx-background-color: #ffffff00;
+}
+.list-cell button:hover {
+	-fx-scale-x: 1.2;
+	-fx-scale-y: 1.2;
+	-fx-background-color: #ffffff32;
 }

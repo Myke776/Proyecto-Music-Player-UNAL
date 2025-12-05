@@ -1,39 +1,39 @@
 package musicfun.logic;
 
+import musicfun.model.LibraryModel;
 import musicfun.model.PlaylistModel;
 import musicfun.model.SongModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.ObservableList;
+
 public class PlaylistLogic {
-	private List<PlaylistModel> playlists;
+	private static ObservableList<PlaylistModel> playlists = LibraryModel.getPlaylists();
 
-	public PlaylistLogic() {
-		this.playlists = new ArrayList<>();
-	}
 
-	public PlaylistModel createPlaylist(String name) {
+	public static PlaylistModel createPlaylist(String name) {
 		PlaylistModel playlist = new PlaylistModel(name);
 		playlists.add(playlist);
 		return playlist;
 	}
 
-	public PlaylistModel createPlaylist(String name, List<SongModel> initialSongs) {
+	public static PlaylistModel createPlaylist(String name, List<SongModel> initialSongs) {
 		PlaylistModel playlist = new PlaylistModel(name);
 		playlist.setSongs(initialSongs);
 		playlists.add(playlist);
 		return playlist;
 	}
 
-	public boolean deletePlaylist(PlaylistModel playlist) {
+	public static boolean deletePlaylist(PlaylistModel playlist) {
 		return playlists.remove(playlist);
 	}
 
-	public boolean deletePlaylist(String name) {
+	public static boolean deletePlaylist(String name) {
 		return playlists.removeIf(playlist -> playlist.getName().equals(name));
 	}
 
-	public List<PlaylistModel> findPlaylistsByName(String name) {
+	public static List<PlaylistModel> findPlaylistsByName(String name) {
 		List<PlaylistModel> results = new ArrayList<>();
 		for (PlaylistModel playlist : playlists) {
 			if (playlist.getName().toLowerCase().contains(name.toLowerCase())) {
@@ -43,17 +43,17 @@ public class PlaylistLogic {
 		return results;
 	}
 
-	public void addSongToPlaylist(PlaylistModel playlist, SongModel song) {
+	public static void addSongToPlaylist(PlaylistModel playlist, SongModel song) {
 		if (!playlist.containsSong(song)) {
 			playlist.addSong(song);
 		}
 	}
 
-	public void removeSongFromPlaylist(PlaylistModel playlist, SongModel song) {
+	public static void removeSongFromPlaylist(PlaylistModel playlist, SongModel song) {
 		playlist.removeSong(song);
 	}
 
-	public void reorderPlaylistSongs(PlaylistModel playlist, int fromIndex, int toIndex) {
+	public static void reorderPlaylistSongs(PlaylistModel playlist, int fromIndex, int toIndex) {
 		List<SongModel> songs = playlist.getSongs();
 		if (fromIndex >= 0 && fromIndex < songs.size() &&
 				toIndex >= 0 && toIndex < songs.size()) {
@@ -63,7 +63,7 @@ public class PlaylistLogic {
 		}
 	}
 
-	public void importSongsToPlaylist(PlaylistModel target, PlaylistModel source) {
+	public static void importSongsToPlaylist(PlaylistModel target, PlaylistModel source) {
 		for (SongModel song : source.getSongs()) {
 			if (!target.containsSong(song)) {
 				target.addSong(song);
@@ -71,24 +71,31 @@ public class PlaylistLogic {
 		}
 	}
 
-	public PlaylistModel duplicatePlaylist(PlaylistModel original, String newName) {
+	public static PlaylistModel duplicatePlaylist(PlaylistModel original, String newName) {
 		PlaylistModel duplicate = new PlaylistModel(newName);
 		duplicate.setSongs(original.getSongs());
 		playlists.add(duplicate);
 		return duplicate;
 	}
 
-	public List<PlaylistModel> getAllPlaylists() {
+	public static List<PlaylistModel> getAllPlaylists() {
 		return new ArrayList<>(playlists);
 	}
 
-	public int getPlaylistCount() {
+	public static int getPlaylistCount() {
 		return playlists.size();
 	}
 
-	public PlaylistModel getPlaylistById(String id) {
+	public static PlaylistModel getPlaylistById(String id) {
 		return playlists.stream()
 				.filter(playlist -> playlist.getId().equals(id))
+				.findFirst()
+				.orElse(null);
+	}
+
+	public static PlaylistModel getPlaylistByName(String name) {
+		return LibraryModel.getPlaylists().stream()
+				.filter(playlist -> playlist.getName().equalsIgnoreCase(name))
 				.findFirst()
 				.orElse(null);
 	}

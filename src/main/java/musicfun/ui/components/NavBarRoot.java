@@ -5,8 +5,8 @@ import java.util.List;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import musicfun.ui.navigation.NavigationManager;
-import musicfun.ui.navigation.SceneInfo;
+import musicfun.ui.model.navigation.NavigationManager;
+import musicfun.ui.model.navigation.SceneInfo;
 
 public class NavBarRoot extends VBox {
 	public NavBarRoot(NavigationManager navigation) {

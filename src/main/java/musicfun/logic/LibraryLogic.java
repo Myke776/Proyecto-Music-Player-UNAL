@@ -11,6 +11,7 @@ import musicfun.service.MultimediaSearch;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -120,11 +121,12 @@ public class LibraryLogic {
 				totalSongs, totalArtists, totalAlbums, hours, minutes);
 	}
 
-	public static PlaylistModel getPlaylistByName(String name) {
+	public static List<String> getAllPlayList() {
 		return LibraryModel.getPlaylists().stream()
-				.filter(playlist -> playlist.getName().equalsIgnoreCase(name))
-				.findFirst()
-				.orElse(null);
+				.filter(genre -> genre.getName() != null)
+				.map(PlaylistModel::getName)
+				.sorted()
+				.collect(Collectors.toList());
 	}
 
 	public static List<String> getAllArtists() {
@@ -222,9 +224,9 @@ public class LibraryLogic {
     }
 
 	public static AlbumModel getAlbum(String albumName) {
-		List<SongModel> songs = new ArrayList<>(LibraryModel.getSongs().stream().filter(
+		List<SongModel> songs = LibraryModel.getSongs().stream().filter(
 			song -> song.getAlbum().toLowerCase().equals(albumName.toLowerCase())
-		).toList());
+		).collect(Collectors.toList());
 		sortSongs(songs, SortType.NAME, false); //Mirar para poder organizar las canciones.
 
 		AlbumModel album = new AlbumModel(albumName, songs.get(0).getArtist());
@@ -236,8 +238,8 @@ public class LibraryLogic {
 	public static ArtistModel getArtist(String artistName) {
 		List<SongModel> songs = LibraryModel.getSongs().stream().filter(
 			song -> song.getArtist().equals((artistName))
-		).toList();
-		// sortSongs(songs, SortType.NAME, false);
+		).collect(Collectors.toList());
+		sortSongs(songs, SortType.NAME, false);
 
 		List<String> albums = songs.stream().map(SongModel::getAlbum).toList();
 

@@ -1,6 +1,7 @@
 package musicfun;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
@@ -12,13 +13,12 @@ import musicfun.logic.MusicPlayerLogic;
 import musicfun.model.PlayerStateModel;
 import musicfun.ui.NavigationRoot;
 import musicfun.ui.components.GridLayoutManager;
-import musicfun.ui.navigation.NavigationManager;
+import musicfun.ui.model.navigation.NavigationManager;
 
 public class App extends Application {
 	private static Scene scene;
 	private static NavigationManager navigationRoot;
 	private static MusicPlayerLogic musicPlayerLogic;
-
 	@Override
 	public void init() {
 		// Este se ejecuta junto con la clase Application o constructor, sirve para
@@ -57,6 +57,10 @@ public class App extends Application {
 
 	public static MusicPlayerLogic getMusicPlayer() {
 		return musicPlayerLogic;
+	}
+
+	public static Scene getScene() {
+		return scene;
 	}
 
 	public static void main(String[] args) {

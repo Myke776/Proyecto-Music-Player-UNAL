@@ -1,4 +1,4 @@
-package musicfun.ui.components.playerControl;
+package musicfun.ui.components.musicPlayerControl;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;

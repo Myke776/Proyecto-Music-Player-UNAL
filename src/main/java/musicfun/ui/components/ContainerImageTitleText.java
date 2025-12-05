@@ -1,15 +1,16 @@
 package musicfun.ui.components;
 
+
 import javafx.geometry.Orientation;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 
 public class ContainerImageTitleText extends GridPane {
 	private final ImageView COVER_VIEW = new ImageView();
-	private final Text TITLE = new Text();
-	private final Text TEXT = new Text();
+	private final Label TITLE = new Label();
+	private final Label TEXT = new Label();
 
 	public ContainerImageTitleText(Image image, double imageSize, String title, String text, Orientation orientation) {
 		super();
@@ -26,6 +27,8 @@ public class ContainerImageTitleText extends GridPane {
 			setHorizontal();
 		}else {
 			setVertical();
+			TITLE.setMaxWidth(imageSize);
+			TEXT.setMaxWidth(imageSize);
 		}
 		super.getChildren().addAll(COVER_VIEW, TITLE, TEXT);
 

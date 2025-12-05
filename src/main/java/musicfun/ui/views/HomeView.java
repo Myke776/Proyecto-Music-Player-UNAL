@@ -13,57 +13,51 @@ import musicfun.model.AlbumModel;
 import musicfun.model.ArtistModel;
 import musicfun.model.LibraryModel;
 import musicfun.model.SongModel;
-import musicfun.ui.components.ListView.ListMusicCollection;
-import musicfun.ui.components.ListView.ListSong;
-import musicfun.ui.navigation.SceneInfo;
+import musicfun.ui.components.listView.ListMusicCollection;
+import musicfun.ui.components.listView.ListSong;
+import musicfun.ui.model.navigation.SceneInfo;
 
 public class HomeView extends SceneInfo<VBox> {
 
 	public HomeView() {
 		super("Home", "home-3119.png", "home", true, false, new VBox());
-		initializeUI();
 	}
 
-	private void initializeUI() {
-		VBox scene = super.getSceneLoader();
+	@Override
+	protected void initializeUI(VBox scene) {
 		HBox horizontalContainer = new HBox();
 
-		new Thread(() -> {
-			List<SongModel> recentlyAddedSongs = LibraryLogic.getRecentlyAddedSongs();
+		List<SongModel> recentlyAddedSongs = LibraryLogic.getRecentlyAddedSongs();
 
-			ObservableList<SongModel> recentlyPlayedSongs = LibraryModel.getRecentlyPlayedSongs();
-			ObservableList<AlbumModel> recentlyPlayedAlbums = LibraryModel.getRecentlyPlayedAlbums();
-			ObservableList<ArtistModel> recentlyPlayedArtist = LibraryModel.getRecentlyPlayedArtists();
+		ObservableList<SongModel> recentlyPlayedSongs = LibraryModel.getRecentlyPlayedSongs();
+		ObservableList<AlbumModel> recentlyPlayedAlbums = LibraryModel.getRecentlyPlayedAlbums();
+		ObservableList<ArtistModel> recentlyPlayedArtist = LibraryModel.getRecentlyPlayedArtists();
+		Label labelAddedSongs = new Label("Recently added songs.");
+		ListSong recentlyAddedSongsList = new ListSong(recentlyAddedSongs, 100, Orientation.VERTICAL);
+		recentlyAddedSongsList.setOrientation(Orientation.HORIZONTAL);
+		recentlyAddedSongsList.setMinHeight(220);
+		recentlyAddedSongsList.setMaxHeight(220);
+		recentlyAddedSongsList.setPrefHeight(220);
 
-			javafx.application.Platform.runLater(() -> {
-				Label labelAddedSongs = new Label("Recently added songs.");
-				ListSong recentlyAddedSongsList = new ListSong(recentlyAddedSongs, 100, Orientation.VERTICAL);
-				recentlyAddedSongsList.setOrientation(Orientation.HORIZONTAL);
-				recentlyAddedSongsList.setMinHeight(220);
-				recentlyAddedSongsList.setMaxHeight(220);
-				recentlyAddedSongsList.setPrefHeight(220);
+		Label labelRecentlyPlayedSongs = new Label("Recently played songs.");
+		ListSong recentlyPlayedSongsList = new ListSong(recentlyPlayedSongs);
+		VBox container1 = new VBox(labelRecentlyPlayedSongs, recentlyPlayedSongsList);
+		Label labelRecentlyPlayedAlbums = new Label("Recently played albums.");
+		ListMusicCollection<AlbumModel> recentlyAlbumList = new ListMusicCollection<>(recentlyPlayedAlbums);
+		VBox container2 = new VBox(labelRecentlyPlayedAlbums, recentlyAlbumList);
+		Label labelRecentlyPlayedArtists = new Label("Recently played artists.");
+		ListMusicCollection<ArtistModel> recentlyArtistsList = new ListMusicCollection<>(recentlyPlayedArtist);
+		VBox container3 = new VBox(labelRecentlyPlayedArtists, recentlyArtistsList);
+		horizontalContainer.getChildren().addAll(container1, container2, container3);
 
-				Label labelRecentlyPlayedSongs = new Label("Recently played songs.");
-				ListSong recentlyPlayedSongsList = new ListSong(recentlyPlayedSongs);
-				VBox container1 = new VBox(labelRecentlyPlayedSongs, recentlyPlayedSongsList);
-				Label labelRecentlyPlayedAlbums = new Label("Recently played albums.");
-				ListMusicCollection<AlbumModel> recentlyAlbumList = new ListMusicCollection<>(recentlyPlayedAlbums);
-				VBox container2 = new VBox(labelRecentlyPlayedAlbums, recentlyAlbumList);
-				Label labelRecentlyPlayedArtists = new Label("Recently played artists.");
-				ListMusicCollection<ArtistModel> recentlyArtistsList = new ListMusicCollection<>(recentlyPlayedArtist);
-				VBox container3 = new VBox(labelRecentlyPlayedArtists, recentlyArtistsList);
-				horizontalContainer.getChildren().addAll(container1, container2, container3);
+		VBox.setVgrow(recentlyPlayedSongsList, Priority.NEVER);
+		VBox.setVgrow(horizontalContainer, Priority.ALWAYS);
 
-				VBox.setVgrow(recentlyPlayedSongsList, Priority.NEVER);
-				VBox.setVgrow(horizontalContainer, Priority.ALWAYS);
-
-				HBox.setHgrow(container1, Priority.ALWAYS);
-				HBox.setHgrow(container2, Priority.ALWAYS);
-				HBox.setHgrow(container3, Priority.ALWAYS);
-				scene.getChildren().addAll(labelAddedSongs, recentlyAddedSongsList, horizontalContainer);
-				scene.setSpacing(10);
-				scene.setStyle("-fx-padding: 20 0;");
-			});
-		}).start();
+		HBox.setHgrow(container1, Priority.ALWAYS);
+		HBox.setHgrow(container2, Priority.ALWAYS);
+		HBox.setHgrow(container3, Priority.ALWAYS);
+		scene.getChildren().addAll(labelAddedSongs, recentlyAddedSongsList, horizontalContainer);
+		scene.setSpacing(10);
+		scene.setStyle("-fx-padding: 20 0;");
 	}
 }

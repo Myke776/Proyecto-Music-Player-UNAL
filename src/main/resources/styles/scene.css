@@ -1,3 +1,5 @@
+/* MAin scene */
+
 .scene {
 	-fx-background-color: linear-gradient(to bottom, #311C40, #170E1F);
 }
@@ -9,10 +11,10 @@
 .scene Label {
 	-fx-text-fill: #f0f0f0;
 	-fx-font-size: 14;
-	-fx-font-weight: BOLD;
 }
 
 .scene .text-bold {
+	-fx-font-size: 12;
 	-fx-font-weight: BOLD;
 }
 .scene .text-opacity {
@@ -20,6 +22,44 @@
 	-fx-opacity: 0.5;
 }
 
-.button:hover {
+.button {
 	-fx-cursor: hand;
+    -fx-background-color: #36363680;
+	-fx-fill: #ffffff;
+	-fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-background-color: #363636c6;
+}
+
+
+/* ChoiceBox */
+.choice-box {
+    -fx-background-color: #36363680;
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+    -fx-background-radius: 8;
+}
+
+.choice-box .context-menu  {
+    -fx-background-color: #000000;
+	-fx-background-radius: 5;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-size: 13px;
+	-fx-cursor: hand;
+}
+
+.choice-box .menu-item {
+    -fx-background-color: #00000000;
+    -fx-text-fill: rgb(255, 255, 255);
+}
+
+.choice-box .menu-item:hover {
+    -fx-background-color: #171717;
+}
+/* CheckBox */
+.check-box {
+    -fx-text-fill: rgb(255, 255, 255);
 }

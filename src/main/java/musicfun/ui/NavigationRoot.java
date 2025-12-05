@@ -2,9 +2,10 @@ package musicfun.ui;
 
 import musicfun.ui.components.GridLayoutManager;
 import musicfun.ui.components.NavBarRoot;
-import musicfun.ui.components.playerControl.MusicPlayerControl;
-import musicfun.ui.navigation.NavigationManager;
+import musicfun.ui.components.musicPlayerControl.MusicPlayerControl;
+import musicfun.ui.model.navigation.NavigationManager;
 import musicfun.ui.views.HomeView;
+import musicfun.ui.views.MusicCollectionView;
 import musicfun.ui.views.MyMusic;
 import musicfun.ui.views.PlaylistsView;
 import musicfun.ui.views.Settings;
@@ -15,7 +16,8 @@ public class NavigationRoot extends NavigationManager {
 				new HomeView(),
 				new PlaylistsView(),
 				new MyMusic(),
-				new Settings()
+				new Settings(),
+				new MusicCollectionView()
 		);
 		
 		super.setContent("left", true, new NavBarRoot(this));

@@ -1,4 +1,4 @@
-package musicfun.ui.navigation;
+package musicfun.ui.model.navigation;
 
 import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;

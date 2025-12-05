@@ -1,9 +1,11 @@
-package musicfun.ui.components.ListView;
+package musicfun.ui.components.listView;
 
 import java.util.List;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ListCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import musicfun.App;
 import musicfun.model.AlbumModel;
@@ -15,7 +17,7 @@ public class CellMusicCollection <Collection extends MusicCollection> extends Li
 	private HBox contentMain = new HBox(10);
 	private ContainerImageTitleText containerTitleAndArtist;
 
-	public CellMusicCollection(List<Collection> parentList, double sizeImage, Orientation orientationCell) {
+	public CellMusicCollection(List<Collection> parentList, double sizeImage, Orientation orientationCell, EventHandler<? super MouseEvent> event) {
 		containerTitleAndArtist = new ContainerImageTitleText(sizeImage, orientationCell);
 		this.contentMain.getChildren().addAll(this.containerTitleAndArtist);
 
@@ -24,9 +26,17 @@ public class CellMusicCollection <Collection extends MusicCollection> extends Li
 		// HBox.setHgrow(containerTitleAndArtist, Priority.ALWAYS);
 		// HBox.setHgrow(duration, Priority.ALWAYS);
 
+		setOnMouseClicked(event);
+	}
+
+	public CellMusicCollection(List<Collection> parentList, double sizeImage, Orientation orientationCell) {
+		this(parentList, sizeImage, orientationCell, null);
+		// HBox.setHgrow(containerTitleAndArtist, Priority.ALWAYS);
+		// HBox.setHgrow(duration, Priority.ALWAYS);
+
 		setOnMouseClicked(event -> {
 			if (!isEmpty() && getItem() != null) {
-				App.getNavigation().navigateTo("MusicCollection", parentList);
+				App.getNavigation().navigateTo("musicCollection", parentList); // crear ventana de MusicCollection
 			}
 		});
 	}
