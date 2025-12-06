@@ -6,7 +6,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
-import musicfun.App;
+import musicfun.logic.MusicPlayerLogic;
+import musicfun.model.PlayerStateModel;
 import musicfun.service.SongService;
 
 public class SliderTime extends HBox {
@@ -23,13 +24,13 @@ public class SliderTime extends HBox {
 		super.getChildren().addAll(currentTime, slider, finalTime);
 
 		slider.setOnMouseReleased(event -> {
-			App.getMusicPlayer().resume();
+			MusicPlayerLogic.resume();
 		});
 
 		this.slider.valueProperty().addListener((obs, oldValue, newValue) -> {
 			if (this.slider.isPressed()) {
-				App.getMusicPlayer().pause();
-				App.getMusicPlayer().setCurrentTime(newValue.longValue());
+				MusicPlayerLogic.pause();
+				MusicPlayerLogic.setCurrentTime(newValue.longValue());
 			}
 			double percentage = 100.0 * newValue.doubleValue() / slider.getMax();
 			String style = String.format(Locale.US,
@@ -42,11 +43,11 @@ public class SliderTime extends HBox {
 			slider.setStyle(style);
 		});
 
-		App.getMusicPlayer().getPlayerState().addListenerCurrentTime((obs, oldTime, newTime) -> {
+		PlayerStateModel.addListenerCurrentTime((obs, oldTime, newTime) -> {
 			slider.setValue(newTime.longValue());
 			this.currentTime.setText(SongService.getFormattedDuration(newTime.longValue()));
 		});
-		App.getMusicPlayer().getPlayerState().addListenerCurrentSong((obs, oldSong, newSong) -> {
+		PlayerStateModel.addListenerCurrentSong((obs, oldSong, newSong) -> {
 			this.finalTime.setText(newSong.getFormattedDuration());
 			this.slider.setMax(newSong.getDuration());
 		});

@@ -2,7 +2,7 @@ package musicfun.ui.components.musicPlayerControl;
 
 import javafx.geometry.Pos;
 // import javafx.scene.control.Slider;
-import musicfun.App;
+import musicfun.model.PlayerStateModel;
 import musicfun.service.SongService;
 import musicfun.ui.components.ContainerImageTitleText;
 import musicfun.ui.components.GridLayoutManager;
@@ -17,7 +17,7 @@ public class MusicPlayerControl extends GridLayoutManager {
 		super.setExpand(false, true);
 		containerButtons.setAlignment(Pos.CENTER);
 		
-		App.getMusicPlayer().getPlayerState().addListenerCurrentSong((obs, oldSong, newSong) -> {
+		PlayerStateModel.addListenerCurrentSong((obs, oldSong, newSong) -> {
 			this.containerTitleAndArtist.setArtist(newSong.getArtist());
 			this.containerTitleAndArtist.setTitle(newSong.getTitle());
 			this.containerTitleAndArtist.setImage(SongService.getImage(newSong.getCover()));

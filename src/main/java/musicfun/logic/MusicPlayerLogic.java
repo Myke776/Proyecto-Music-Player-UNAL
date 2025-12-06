@@ -16,50 +16,50 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class MusicPlayerLogic {
-	private MediaPlayer mediaPlayer;
-	private PlayerStateModel playerState;
-	private ListProperty<SongModel> currentQueue = new SimpleListProperty<>();
-	private int currentIndex;
-	private Random random;
+	private static MediaPlayer mediaPlayer;
+	// private static PlayerStateModel playerState = new PlayerStateModel();
+	private static ListProperty<SongModel> currentQueue = new SimpleListProperty<>();
+	private static int currentIndex = -1;
+	private static Random random = new Random();
 
-	public MusicPlayerLogic(PlayerStateModel playerState) {
-		this.playerState = playerState;
-		this.random = new Random();
-		this.currentIndex = -1;
-	}
+	// public MusicPlayerLogic(PlayerStateModel playerState) {
+	// 	this.playerState = playerState;
+	// 	this.random = new Random();
+	// 	this.currentIndex = -1;
+	// }
 
-	public void setQueue(List<SongModel> queue) {
+	public static void setQueue(List<SongModel> queue) {
 		if (currentQueue == null || !currentQueue.equals(queue)) {
-			this.currentQueue.set(FXCollections.observableArrayList(queue));
-			this.currentIndex = -1;
+			currentQueue.set(FXCollections.observableArrayList(queue));
+			currentIndex = -1;
 		}
 	}
 
-	public void playSong(SongModel song) {
-		this.stop();
+	public static void playSong(SongModel song) {
+		stop();
 		String songURI = new File(song.getFilePath()).toURI().toString();
 		Media songMedia = new Media(songURI);
-		this.mediaPlayer = new MediaPlayer(songMedia);
+		mediaPlayer = new MediaPlayer(songMedia);
 		mediaPlayer.play();
-		playerState.setCurrentSong(song);
-		playerState.setPlaying(true);
+		PlayerStateModel.setCurrentSong(song);
+		PlayerStateModel.setPlaying(true);
 		mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
-			playerState.setCurrentTime((long) newTime.toSeconds());
+			PlayerStateModel.setCurrentTime((long) newTime.toSeconds());
 		});
 
 		mediaPlayer.setOnEndOfMedia(() -> {
 			handleSongEnd();
 		});
-		this.currentIndex = currentQueue.indexOf(song);
+		currentIndex = currentQueue.indexOf(song);
 		LibraryLogic.markSongAsPlayed(song);
 	}
 
-	public SongModel playNext() {
+	public static SongModel playNext() {
 		if (currentQueue == null || currentQueue.isEmpty()) {
 			return null;
 		}
 
-		if (playerState.getShuffle()) {
+		if (PlayerStateModel.getShuffle()) {
 			currentIndex = random.nextInt(currentQueue.size());
 		} else {
 			currentIndex = (currentIndex + 1) % currentQueue.size();
@@ -70,12 +70,12 @@ public class MusicPlayerLogic {
 		return nextSong;
 	}
 
-	public SongModel playPrevious() {
+	public static SongModel playPrevious() {
 		if (currentQueue == null || currentQueue.isEmpty()) {
 			return null;
 		}
 
-		if (playerState.getShuffle()) {
+		if (PlayerStateModel.getShuffle()) {
 			currentIndex = random.nextInt(currentQueue.size());
 		} else {
 			currentIndex = (currentIndex - 1 + currentQueue.size()) % currentQueue.size();
@@ -86,71 +86,72 @@ public class MusicPlayerLogic {
 		return previousSong;
 	}
 
-	public void pause() {
+	public static void pause() {
 		if (mediaPlayer != null) {
 			mediaPlayer.pause();
-			playerState.setPlaying(false);
+			PlayerStateModel.setPlaying(false);
 		}
 	}
 
-	public void resume() {
+	public static void resume() {
 		if (mediaPlayer != null) {
 			mediaPlayer.play();
-			playerState.setPlaying(true);
+			PlayerStateModel.setPlaying(true);
 		}
 	}
 
-	public void stop() {
+	public static void stop() {
 		if (mediaPlayer != null) {
-			this.mediaPlayer.stop();
-			playerState.setPlaying(false);
-			playerState.setCurrentTime(0);
+			mediaPlayer.stop();
+			PlayerStateModel.setPlaying(false);
+			PlayerStateModel.setCurrentTime(0);
 		}
 	}
 
-	public void setCurrentTime(long time) {
+	public static void setCurrentTime(long time) {
 		if (mediaPlayer != null) {
 			mediaPlayer.seek(Duration.seconds(time));
 		}
 	}
 
-	public void toggleCycleRepeatMode() {
-		switch (playerState.getRepeatMode()) {
+	public static void toggleCycleRepeatMode() {
+		switch (PlayerStateModel.getRepeatMode()) {
 			case NONE:
-				playerState.setRepeatMode(PlayerStateModel.RepeatMode.ALL);
+				PlayerStateModel.setRepeatMode(PlayerStateModel.RepeatMode.ALL);
 				break;
 			case ALL:
-				playerState.setRepeatMode(PlayerStateModel.RepeatMode.ONE);
+				PlayerStateModel.setRepeatMode(PlayerStateModel.RepeatMode.ONE);
 				break;
 			case ONE:
-				playerState.setRepeatMode(PlayerStateModel.RepeatMode.NONE);
+				PlayerStateModel.setRepeatMode(PlayerStateModel.RepeatMode.NONE);
 				break;
 		}
 	}
 
-	public void toggleShuffleMode() {
-		playerState.setShuffle(!playerState.getShuffle());
+	public static void toggleShuffleMode() {
+		PlayerStateModel.setShuffle(!PlayerStateModel.getShuffle());
 	}
 
-	public SongModel handleSongEnd() {
-		if (playerState.getRepeatMode() == PlayerStateModel.RepeatMode.ONE) {
+	public static SongModel handleSongEnd() {
+		if (PlayerStateModel.getRepeatMode() == PlayerStateModel.RepeatMode.ONE) {
 			mediaPlayer.seek(Duration.ZERO);
 			mediaPlayer.play();
-			return playerState.getCurrentSong();
+			return PlayerStateModel.getCurrentSong();
 		} else {
 			return playNext();
 		}
 	}
 
 	// Getters
-	public PlayerStateModel getPlayerState() {
-		return playerState;
-	}
+	// public static PlayerStateModel getPlayerState() {
+	// 	return playerState;
+	// }
 
-	public ObservableList<SongModel> getCurrentQueue() {
+	public static ObservableList<SongModel> getCurrentQueue() {
 		return currentQueue;
 	}
-	public int getCurrentIndex() {
+	
+	public static int getCurrentIndex() {
 		return currentIndex;
 	}
 

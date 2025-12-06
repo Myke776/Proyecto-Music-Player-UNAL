@@ -1,7 +1,6 @@
 package musicfun;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
@@ -10,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import musicfun.logic.LibraryLogic;
 import musicfun.logic.MusicPlayerLogic;
-import musicfun.model.PlayerStateModel;
 import musicfun.ui.NavigationRoot;
 import musicfun.ui.components.GridLayoutManager;
 import musicfun.ui.model.navigation.NavigationManager;
@@ -18,13 +16,12 @@ import musicfun.ui.model.navigation.NavigationManager;
 public class App extends Application {
 	private static Scene scene;
 	private static NavigationManager navigationRoot;
-	private static MusicPlayerLogic musicPlayerLogic;
 	@Override
 	public void init() {
 		// Este se ejecuta junto con la clase Application o constructor, sirve para
 		// validacion o carga de datos, no interfaz
 
-		musicPlayerLogic = new MusicPlayerLogic(new PlayerStateModel());
+		// musicPlayerLogic = new MusicPlayerLogic(new PlayerStateModel());
 		LibraryLogic.setFolders(List.of(
 			"C:\\Users\\Oscar\\Downloads"
 		// , "C:\\Users\\Oscar\\Documents"
@@ -41,7 +38,7 @@ public class App extends Application {
 		scene = new Scene(gridLayoutManager, Double.MAX_VALUE, Double.MAX_VALUE);
 		stage.setScene(scene);
 		stage.setTitle("Music fun");
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("/icons/musical-notes-10191.png")));
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/icons/icon.png")));
 		stage.show();
 		stage.centerOnScreen();
 	}
@@ -53,10 +50,6 @@ public class App extends Application {
 
 	public static NavigationManager getNavigation() {
 		return navigationRoot;
-	}
-
-	public static MusicPlayerLogic getMusicPlayer() {
-		return musicPlayerLogic;
 	}
 
 	public static Scene getScene() {

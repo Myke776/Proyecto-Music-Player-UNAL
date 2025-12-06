@@ -10,7 +10,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import musicfun.App;
+import musicfun.logic.MusicPlayerLogic;
 import musicfun.model.SongModel;
 import musicfun.service.SongService;
 import musicfun.ui.components.ContainerImageTitleText;
@@ -26,11 +26,12 @@ public class CellSong extends ListCell<SongModel> {
 		containerTitleAndArtist = new ContainerImageTitleText(sizeImage, orientationCell);
 
 		this.contentMain.getChildren().addAll(this.containerTitleAndArtist);
-		
-		if(orientationCell == Orientation.HORIZONTAL){
+
+		if (orientationCell == Orientation.HORIZONTAL) {
 			this.contentMain.getChildren().addAll(duration, addSongToPlaylist);
 
-			ImageView imageView = new ImageView(new Image( getClass().getResourceAsStream("/icons/music-player-add-playlist-queue-round-outline-icon.png")));
+			ImageView imageView = new ImageView(new Image(
+					getClass().getResourceAsStream("/icons/music-player-add-playlist-queue-round-outline-icon.png")));
 			addSongToPlaylist.setGraphic(imageView);
 			imageView.setFitWidth(sizeImage * 0.7);
 			imageView.setFitHeight(sizeImage * 0.7);
@@ -42,17 +43,16 @@ public class CellSong extends ListCell<SongModel> {
 			StackPane.setAlignment(addSongToPlaylist, Pos.CENTER_RIGHT);
 		}
 
-
 		setOnMouseClicked(event -> {
 			if (!isEmpty() && getItem() != null) {
-				App.getMusicPlayer().setQueue(parentList);
-				App.getMusicPlayer().playSong(getItem());
+				MusicPlayerLogic.setQueue(parentList);
+				MusicPlayerLogic.playSong(getItem());
 			}
 		});
 
 		addSongToPlaylist.setOnAction(__ -> {
-				new AddSongToPlaylist(super.getItem());
-			});
+			new AddSongToPlaylist(super.getItem());
+		});
 	}
 
 	@Override

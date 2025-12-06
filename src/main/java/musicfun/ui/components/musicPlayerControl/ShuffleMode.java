@@ -1,13 +1,14 @@
 package musicfun.ui.components.musicPlayerControl;
 
-import musicfun.App;
+import musicfun.logic.MusicPlayerLogic;
+import musicfun.model.PlayerStateModel;
 import musicfun.ui.components.ButtonImage;
 
 public class ShuffleMode extends ButtonImage {
 	public ShuffleMode() {
 		super("/icons/shuffle-arrows-2831.png");
 
-		App.getMusicPlayer().getPlayerState().addListenerShuffle((obs, old, newMode) -> {
+		PlayerStateModel.addListenerShuffle((obs, old, newMode) -> {
 			if(newMode) {
 				super.imageView.setStyle("-fx-opacity: 1;");
 			}
@@ -17,7 +18,7 @@ public class ShuffleMode extends ButtonImage {
 		});
 
 		super.setOnAction(e -> {
-			App.getMusicPlayer().toggleShuffleMode();
+			MusicPlayerLogic.toggleShuffleMode();
 		});
 		
 		super.imageView.setStyle("-fx-opacity: 0.5;");

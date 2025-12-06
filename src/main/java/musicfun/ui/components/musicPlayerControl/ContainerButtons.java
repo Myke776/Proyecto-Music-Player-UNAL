@@ -2,7 +2,8 @@ package musicfun.ui.components.musicPlayerControl;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import musicfun.App;
+import musicfun.logic.MusicPlayerLogic;
+import musicfun.model.PlayerStateModel;
 import musicfun.ui.components.ButtonImage;
 
 public class ContainerButtons extends HBox {
@@ -27,23 +28,23 @@ public class ContainerButtons extends HBox {
 		super.getChildren().addAll(cycleRepeatMode, previusView, playPauseView, nextView, shuffleMode);
 		super.setSpacing(50);
 
-		App.getMusicPlayer().getPlayerState().addListenerPlaying((obs, old, playing) -> {
+		PlayerStateModel.addListenerPlaying((obs, old, playing) -> {
 			this.toggle(playing);
 		});
 
 		playPauseView.setOnMouseClicked(event -> {
-			if(App.getMusicPlayer().getPlayerState().isPlaying()) {
-				App.getMusicPlayer().pause();
+			if(PlayerStateModel.isPlaying()) {
+				MusicPlayerLogic.pause();
 			}else {
-				App.getMusicPlayer().resume();
+				MusicPlayerLogic.resume();
 			}
 		});
 
 		nextView.setOnAction(__ -> {
-			App.getMusicPlayer().playNext();
+			MusicPlayerLogic.playNext();
 		});
 		previusView.setOnAction(__ -> {
-			App.getMusicPlayer().playPrevious();
+			MusicPlayerLogic.playPrevious();
 		});
 	}
 

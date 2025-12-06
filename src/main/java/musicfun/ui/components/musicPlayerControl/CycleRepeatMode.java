@@ -5,7 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import musicfun.App;
+import musicfun.logic.MusicPlayerLogic;
+import musicfun.model.PlayerStateModel;
 
 public class CycleRepeatMode extends Button {
 	private ImageView imageView;
@@ -20,7 +21,7 @@ public class CycleRepeatMode extends Button {
 		this.text = new Text();
 
 		super.setGraphic(new StackPane(text, imageView));
-		App.getMusicPlayer().getPlayerState().addListenerRepeatMode((obs, old, newMode) -> {
+		PlayerStateModel.addListenerRepeatMode((obs, old, newMode) -> {
 			switch (newMode) {
 				case NONE:
 					imageView.setImage(REPEAT);
@@ -37,7 +38,7 @@ public class CycleRepeatMode extends Button {
 		});
 
 		super.setOnAction(e -> {
-			App.getMusicPlayer().toggleCycleRepeatMode();
+			MusicPlayerLogic.toggleCycleRepeatMode();
 		});
 
 		double size = 25;

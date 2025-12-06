@@ -11,7 +11,7 @@ import javafx.stage.StageStyle;
 public class Modal <Type extends Parent> extends Stage  {
 	public Modal(String title, Type node) {
 		super(StageStyle.TRANSPARENT);
-		super.getIcons().add(new Image(getClass().getResourceAsStream("/icons/musical-notes-10191.png")));
+		super.getIcons().add(new Image(getClass().getResourceAsStream("/icons/icon.png")));
 		super.initModality(Modality.APPLICATION_MODAL);
 		super.setTitle(title);
 
