@@ -1,6 +1,4 @@
-package musicfun.ui.components.listView;
-
-import java.util.List;
+package musicfun.ui.component.listView;
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -13,7 +11,7 @@ import javafx.scene.layout.StackPane;
 import musicfun.logic.MusicPlayerLogic;
 import musicfun.model.SongModel;
 import musicfun.service.SongService;
-import musicfun.ui.components.ContainerImageTitleText;
+import musicfun.ui.component.ContainerImageTitleText;
 
 public class CellSong extends ListCell<SongModel> {
 
@@ -22,19 +20,20 @@ public class CellSong extends ListCell<SongModel> {
 	private Label duration = new Label();
 	private Button addSongToPlaylist = new Button();
 
-	public CellSong(List<SongModel> parentList, double sizeImage, Orientation orientationCell) {
-		containerTitleAndArtist = new ContainerImageTitleText(sizeImage, orientationCell);
+	public CellSong(CellParams<SongModel> cellParams) {
+		containerTitleAndArtist = new ContainerImageTitleText(cellParams.getSizeImage(),
+				cellParams.getOrientation());
 
 		this.contentMain.getChildren().addAll(this.containerTitleAndArtist);
 
-		if (orientationCell == Orientation.HORIZONTAL) {
+		if (cellParams.getOrientation() == Orientation.HORIZONTAL) {
 			this.contentMain.getChildren().addAll(duration, addSongToPlaylist);
 
 			ImageView imageView = new ImageView(new Image(
 					getClass().getResourceAsStream("/icons/music-player-add-playlist-queue-round-outline-icon.png")));
 			addSongToPlaylist.setGraphic(imageView);
-			imageView.setFitWidth(sizeImage * 0.7);
-			imageView.setFitHeight(sizeImage * 0.7);
+			imageView.setFitWidth(cellParams.getSizeImage().getPrefHeight() * 0.7);
+			imageView.setFitHeight(cellParams.getSizeImage().getPrefHeight() * 0.7);
 
 			this.duration.getStyleClass().add("text-bold");
 
@@ -43,16 +42,22 @@ public class CellSong extends ListCell<SongModel> {
 			StackPane.setAlignment(addSongToPlaylist, Pos.CENTER_RIGHT);
 		}
 
-		setOnMouseClicked(event -> {
-			if (!isEmpty() && getItem() != null) {
-				MusicPlayerLogic.setQueue(parentList);
-				MusicPlayerLogic.playSong(getItem());
-			}
-		});
+		if (cellParams.getEvent() != null) {
+			setOnMouseClicked(cellParams.getEvent());
+		} else {
+			setOnMouseClicked(event -> {
+				if (!super.isEmpty() && super.getItem() != null) {
+					MusicPlayerLogic.setQueue(cellParams.getList());
+					MusicPlayerLogic.playSong(getItem());
+				}
+			});
+		}
 
 		addSongToPlaylist.setOnAction(__ -> {
 			new AddSongToPlaylist(super.getItem());
 		});
+
+		cellParams.getSizeCell().applyTo(contentMain);
 	}
 
 	@Override

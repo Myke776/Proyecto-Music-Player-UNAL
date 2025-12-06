@@ -7,7 +7,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import musicfun.model.LibraryModel;
 import musicfun.model.PlaylistModel;
-import musicfun.ui.components.listView.ListMusicCollection;
+import musicfun.ui.component.listView.ListMusicCollection;
 import musicfun.ui.model.navigation.SceneInfo;
 
 public class PlaylistsView extends SceneInfo<VBox> {

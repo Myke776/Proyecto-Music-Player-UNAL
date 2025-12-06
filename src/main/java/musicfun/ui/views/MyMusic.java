@@ -11,8 +11,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import musicfun.model.LibraryModel;
 import musicfun.model.SongModel;
-import musicfun.ui.components.SortListSongs;
-import musicfun.ui.components.listView.ListSong;
+import musicfun.ui.component.SortListSongs;
+import musicfun.ui.component.listView.ListSong;
 import musicfun.ui.model.navigation.SceneInfo;
 
 public class MyMusic extends SceneInfo<VBox> {

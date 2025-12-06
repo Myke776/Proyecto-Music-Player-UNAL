@@ -63,3 +63,32 @@
 .check-box {
     -fx-text-fill: rgb(255, 255, 255);
 }
+
+/* ScrollPane */
+
+.scroll-pane,
+.scroll-pane .viewport,
+.scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+/**************************/
+/* Estilo para scrollbar */
+/************************/
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+.thumb {
+    -fx-background-color: #444;
+    -fx-background-radius: 4px;
+}
+.thumb:hover {
+    -fx-background-color: #666;
+}
+
+/*  */
+
+.image-view {
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}

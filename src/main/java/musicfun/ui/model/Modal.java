@@ -8,13 +8,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class Modal <Type extends Parent> extends Stage  {
-	public Modal(String title, Type node) {
+public abstract class Modal extends Stage {
+
+	public Modal(String title) {
 		super(StageStyle.TRANSPARENT);
 		super.getIcons().add(new Image(getClass().getResourceAsStream("/icons/icon.png")));
 		super.initModality(Modality.APPLICATION_MODAL);
 		super.setTitle(title);
+	}
 
+	public <Type extends Parent> void setNode(Type node) {
 		Scene scene = new Scene(node);
 		scene.setFill(Color.TRANSPARENT);
 		super.setScene(scene);
@@ -27,7 +30,7 @@ public class Modal <Type extends Parent> extends Stage  {
 		node.setStyle("-fx-background-radius: 20");
 	}
 
-	public void showModal() {
+	public void open() {
 		super.showAndWait();
 		super.centerOnScreen();
 	}

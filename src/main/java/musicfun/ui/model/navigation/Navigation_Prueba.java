@@ -87,7 +87,7 @@ public abstract class Navigation_Prueba {
 		toHide("footer");
 	}
 
-	public void registerScene(SceneInfo<Node> sceneInfo) {
+	public void registerScene(SceneInfo<Region> sceneInfo) {
 		availableScenes.add(sceneInfo);
 	}
 

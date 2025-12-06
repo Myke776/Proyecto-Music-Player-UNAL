@@ -6,18 +6,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ArtistModel extends MusicCollection {
-	private ObservableList<String> albums;
+	private ObservableList<AlbumModel> albums;
 
 	public ArtistModel(String name, String description) {
 		super(name, description);
 		this.albums = FXCollections.observableArrayList();
 	}
 
-	public ObservableList<String> getAlbums() {
+	public ObservableList<AlbumModel> getAlbums() {
 		return albums;
 	}
 
-	public void setAlbums(List<String> albums) {
+	public void setAlbums(List<AlbumModel> albums) {
 		this.albums.setAll(albums);
 	}
 }

@@ -1,4 +1,4 @@
-package musicfun.ui.components;
+package musicfun.ui.component;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;

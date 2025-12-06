@@ -1,14 +1,14 @@
-package musicfun.ui.components.musicPlayerControl;
+package musicfun.ui.component.musicPlayerControl;
 
 import javafx.geometry.Pos;
-// import javafx.scene.control.Slider;
 import musicfun.model.PlayerStateModel;
 import musicfun.service.SongService;
-import musicfun.ui.components.ContainerImageTitleText;
-import musicfun.ui.components.GridLayoutManager;
+import musicfun.ui.component.ContainerImageTitleText;
+import musicfun.ui.component.GridLayoutManager;
+import musicfun.ui.layout.SizeConstraints;
 
 public class MusicPlayerControl extends GridLayoutManager {
-	private final ContainerImageTitleText containerTitleAndArtist = new ContainerImageTitleText(60);
+	private final ContainerImageTitleText containerTitleAndArtist = new ContainerImageTitleText(new SizeConstraints(60));
 	private final ContainerButtons containerButtons = new ContainerButtons();
 	private final SliderTime slider = new SliderTime();
 

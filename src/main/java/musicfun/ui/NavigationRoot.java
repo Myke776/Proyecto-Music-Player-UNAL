@@ -1,8 +1,8 @@
 package musicfun.ui;
 
-import musicfun.ui.components.GridLayoutManager;
-import musicfun.ui.components.NavBarRoot;
-import musicfun.ui.components.musicPlayerControl.MusicPlayerControl;
+import musicfun.ui.component.GridLayoutManager;
+import musicfun.ui.component.NavBarRoot;
+import musicfun.ui.component.musicPlayerControl.MusicPlayerControl;
 import musicfun.ui.model.navigation.NavigationManager;
 import musicfun.ui.views.HomeView;
 import musicfun.ui.views.MusicCollectionView;

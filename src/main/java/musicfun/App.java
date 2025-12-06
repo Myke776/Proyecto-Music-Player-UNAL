@@ -8,9 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import musicfun.logic.LibraryLogic;
-import musicfun.logic.MusicPlayerLogic;
 import musicfun.ui.NavigationRoot;
-import musicfun.ui.components.GridLayoutManager;
+import musicfun.ui.component.GridLayoutManager;
 import musicfun.ui.model.navigation.NavigationManager;
 
 public class App extends Application {

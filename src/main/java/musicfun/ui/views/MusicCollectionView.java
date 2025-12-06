@@ -5,33 +5,36 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import musicfun.model.AlbumModel;
 import musicfun.model.ArtistModel;
 import musicfun.model.MusicCollection;
 import musicfun.model.SongModel;
 import musicfun.service.SongService;
-import musicfun.ui.components.listView.ListSong;
+import musicfun.ui.component.listView.ListMusicCollection;
+import musicfun.ui.component.listView.ListSong;
 import musicfun.ui.model.navigation.SceneInfo;
 
-public class MusicCollectionView extends SceneInfo<VBox> {
+public class MusicCollectionView extends SceneInfo<ScrollPane> {
 	private ImageView coverView;
 	private Label name;
 	private Label description;
 	private ObservableList<SongModel> listSongs;
-	private ObservableList<String> listAlbums;
+	private ObservableList<AlbumModel> listAlbums;
 
 	private VBox containerAlbums;
 
 
 	public MusicCollectionView() {
-		super("MusicCollection", "", "musicCollection", false, false, new VBox());
+		super("MusicCollection", "", "musicCollection", false, false, new ScrollPane());
 	}
 
 	@Override
-	protected void initializeUI(VBox scene) {
+	protected void initializeUI(ScrollPane scene_p) {
+		VBox scene = new VBox();
 		this.listSongs = FXCollections.observableArrayList();
 		this.listAlbums = FXCollections.observableArrayList();
 
@@ -40,7 +43,7 @@ public class MusicCollectionView extends SceneInfo<VBox> {
 		this.description = new Label();
 
 		ListSong songs = new ListSong(listSongs);
-		ListView<String> albums = new ListView<>(listAlbums);
+		ListMusicCollection<AlbumModel> albums = new ListMusicCollection<>(listAlbums);
 		albums.setOrientation(Orientation.HORIZONTAL);
 
 		Label labelAlbum = new Label("Albums");
@@ -57,6 +60,8 @@ public class MusicCollectionView extends SceneInfo<VBox> {
 		coverView.setFitWidth(300);
 		coverView.setFitHeight(300);
 		scene.setPadding(new Insets(20));
+		scene_p.setContent(scene);
+		scene_p.setFitToWidth(true);
 	}
 
 	@Override
@@ -72,8 +77,10 @@ public class MusicCollectionView extends SceneInfo<VBox> {
 				ArtistModel artist = (ArtistModel) musicCollection;
 				listAlbums.setAll(artist.getAlbums());
 				containerAlbums.setVisible(true);
+				containerAlbums.setMaxHeight(120);
 			}else{
 				containerAlbums.setVisible(false);
+				containerAlbums.setMaxHeight(0);
 			}
 		}
 	}

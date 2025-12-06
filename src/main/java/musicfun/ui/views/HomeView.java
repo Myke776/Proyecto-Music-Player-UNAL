@@ -8,13 +8,16 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import musicfun.logic.LibraryLogic;
 import musicfun.model.AlbumModel;
 import musicfun.model.ArtistModel;
 import musicfun.model.LibraryModel;
 import musicfun.model.SongModel;
-import musicfun.ui.components.listView.ListMusicCollection;
-import musicfun.ui.components.listView.ListSong;
+import musicfun.ui.component.listView.CellParams;
+import musicfun.ui.component.listView.ListMusicCollection;
+import musicfun.ui.component.listView.ListSong;
+import musicfun.ui.layout.SizeConstraints;
 import musicfun.ui.model.navigation.SceneInfo;
 
 public class HomeView extends SceneInfo<VBox> {
@@ -33,7 +36,8 @@ public class HomeView extends SceneInfo<VBox> {
 		ObservableList<AlbumModel> recentlyPlayedAlbums = LibraryModel.getRecentlyPlayedAlbums();
 		ObservableList<ArtistModel> recentlyPlayedArtist = LibraryModel.getRecentlyPlayedArtists();
 		Label labelAddedSongs = new Label("Recently added songs.");
-		ListSong recentlyAddedSongsList = new ListSong(recentlyAddedSongs, 100, Orientation.VERTICAL);
+		CellParams<SongModel> cellparams = new CellParams<>(Orientation.VERTICAL, new SizeConstraints(), new SizeConstraints(100));
+		ListSong recentlyAddedSongsList = new ListSong(recentlyAddedSongs, cellparams);
 		recentlyAddedSongsList.setOrientation(Orientation.HORIZONTAL);
 		recentlyAddedSongsList.setMinHeight(220);
 		recentlyAddedSongsList.setMaxHeight(220);

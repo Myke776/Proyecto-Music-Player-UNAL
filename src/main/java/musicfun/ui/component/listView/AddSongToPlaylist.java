@@ -1,4 +1,4 @@
-package musicfun.ui.components.listView;
+package musicfun.ui.component.listView;
 
 import java.util.List;
 
@@ -19,15 +19,15 @@ import musicfun.model.PlaylistModel;
 import musicfun.model.SongModel;
 import musicfun.ui.model.Modal;
 
-public class AddSongToPlaylist {
-	private Modal<VBox> modal;
+public class AddSongToPlaylist extends Modal {
 	private VBox containerMain;
 
 	public AddSongToPlaylist(SongModel song) {
+		super("Add Song To Playlist");
 		this.containerMain = new VBox();
-		this.modal = new Modal<>("Add Song To Playlist", containerMain);
+		super.setNode(containerMain);
 		containerMain.getStyleClass().add("scene");
-		show(song);
+		open(song);
 	}
 
 	private void initializeContent(SongModel song) {
@@ -82,27 +82,27 @@ public class AddSongToPlaylist {
 		containerMain.setPadding(new Insets(20));
 		containerMain.setSpacing(20);
 
-		cancel.setOnAction(__ -> modal.close());
+		cancel.setOnAction(__ -> super.close());
 		ok.setOnAction(__ -> {
 			String namePlaylist = choice.getValue();
 			PlaylistModel playlist = PlaylistLogic.getPlaylistByName(namePlaylist);
 
 			if (playlist != null) {
 				PlaylistLogic.addSongToPlaylist(playlist, song);
-				modal.close();
+				super.close();
 			}
 		});
 		newPlaylist.setOnAction(__ -> {
 			String namePlaylist = input.getText();
 			if (!namePlaylist.isBlank()) {
 				PlaylistLogic.createPlaylist(namePlaylist, List.of(song));
-				modal.close();
+				super.close();
 			}
 		});
 	}
 
-	private void show(SongModel song) {
+	private void open(SongModel song) {
 		initializeContent(song);
-		modal.showModal();
+		super.open();
 	}
 }

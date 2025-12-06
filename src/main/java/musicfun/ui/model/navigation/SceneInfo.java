@@ -1,10 +1,10 @@
 package musicfun.ui.model.navigation;
 
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 
-public abstract class SceneInfo<TypeScene extends Node> {
+public abstract class SceneInfo<TypeScene extends Region> {
 	protected String title;
 	protected String routeIcon;
 	protected String routeName;
@@ -20,6 +20,7 @@ public abstract class SceneInfo<TypeScene extends Node> {
 		this.iconVisible = iconVisible;
 		this.titleVisible = titleVisible;
 		this.sceneLoader = sceneLoader;
+
 		new Thread(() -> {
 			//Agregar aqui escena de carga(Probar con cosas basicas primero)
 			javafx.application.Platform.runLater(() -> {
@@ -62,7 +63,6 @@ public abstract class SceneInfo<TypeScene extends Node> {
 			return imageView;
 		} catch (Exception e) {
 			System.err.println("No se pudo cargar el icono: " + this.routeIcon);
-			// Fallback: crear un ImageView vacío
 			ImageView fallback = new ImageView();
 			fallback.setFitWidth(size);
 			fallback.setFitHeight(size);
@@ -74,7 +74,7 @@ public abstract class SceneInfo<TypeScene extends Node> {
 	public <TypeParam extends Object> void setParams(TypeParam value) {
 	}
 
-	abstract protected void initializeUI(TypeScene scene);
+	abstract protected void  initializeUI(TypeScene scene);
 
 	@Override
 	public String toString() {

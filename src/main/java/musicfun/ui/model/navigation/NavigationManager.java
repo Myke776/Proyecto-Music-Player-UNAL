@@ -3,8 +3,8 @@ package musicfun.ui.model.navigation;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import musicfun.ui.components.GridLayoutManager;
+import javafx.scene.layout.Region;
+import musicfun.ui.component.GridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +27,10 @@ public abstract class NavigationManager {
 		navigateTo(currentRoute);
 	}
 
-	public void registerScene(SceneInfo<Node> sceneInfo) {
+	public void registerScene(SceneInfo<Region> sceneInfo) {
 		availableScenes.add(sceneInfo);
 	}
-	public void removeScene(SceneInfo<Node> sceneInfo) {
+	public void removeScene(SceneInfo<Region> sceneInfo) {
 		availableScenes.remove(sceneInfo);
 	}
 
@@ -67,7 +67,7 @@ public abstract class NavigationManager {
 		this.rootScene.toHide(nameContainer);
 	}
 
-	public void setContent(String nameContainer, boolean deletePreviousContent, Node... content) {
+	public void setContent(String nameContainer, boolean deletePreviousContent, Region... content) {
 		this.rootScene.setContent(nameContainer, deletePreviousContent, content);
 	}
 

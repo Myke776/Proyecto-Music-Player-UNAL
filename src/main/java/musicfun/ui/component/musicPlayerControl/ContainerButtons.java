@@ -1,10 +1,10 @@
-package musicfun.ui.components.musicPlayerControl;
+package musicfun.ui.component.musicPlayerControl;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import musicfun.logic.MusicPlayerLogic;
 import musicfun.model.PlayerStateModel;
-import musicfun.ui.components.ButtonImage;
+import musicfun.ui.component.ButtonImage;
 
 public class ContainerButtons extends HBox {
 	private ButtonImage playPauseView = new ButtonImage();

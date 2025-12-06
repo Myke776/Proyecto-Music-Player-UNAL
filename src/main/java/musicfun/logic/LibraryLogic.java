@@ -11,8 +11,8 @@ import musicfun.service.MultimediaSearch;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-
 
 public class LibraryLogic {
 	private static MetadataService metadataReader = new MetadataService();
@@ -153,6 +153,27 @@ public class LibraryLogic {
 				.collect(Collectors.toList());
 	}
 
+	public static List<AlbumModel> getAlbumsByArtist(String artistName) {
+		List<SongModel> artistSongs = getSongsByArtist(artistName);
+
+		Map<String, List<SongModel>> songsByAlbum = artistSongs.stream()
+				.collect(Collectors.groupingBy(SongModel::getAlbum));
+
+		List<AlbumModel> albums = new ArrayList<>();
+
+		for (Map.Entry<String, List<SongModel>> entry : songsByAlbum.entrySet()) {
+			String albumName = entry.getKey();
+			List<SongModel> albumSongs = entry.getValue();
+
+			AlbumModel album = new AlbumModel(albumName, artistName);
+			album.setSongs(albumSongs);
+			albums.add(album);
+		}
+
+		albums.sort(Comparator.comparing(AlbumModel::getName, String.CASE_INSENSITIVE_ORDER));
+		return albums;
+	}
+
 	public static void sortSongs(List<SongModel> songs, SortType type, boolean ascending) {
 		Comparator<SongModel> comparator;
 
@@ -187,46 +208,45 @@ public class LibraryLogic {
 
 	public static void markSongAsPlayed(SongModel song) {
 		updateRecentlyPlayedSongs(song);
-        updateRecentlyPlayedAlbums(song);
-        updateRecentlyPlayedArtists(song);
+		updateRecentlyPlayedAlbums(song);
+		updateRecentlyPlayedArtists(song);
 	}
 
 	private static void updateRecentlyPlayedSongs(SongModel song) {
-        LibraryModel.removeRecentlyPlayedSong(song);
-        LibraryModel.addToRecentlyPlayedSongs(song);
-        
-        if (LibraryModel.getRecentlyPlayedSongs().size() > RECENT_SONGS_LIMIT) {
-            LibraryModel.removeRecentlyPlayedSong(RECENT_SONGS_LIMIT);
-        }
-    }
+		LibraryModel.removeRecentlyPlayedSong(song);
+		LibraryModel.addToRecentlyPlayedSongs(song);
 
-    private static void updateRecentlyPlayedAlbums(SongModel song) {
-        AlbumModel album = getAlbum(song.getAlbum());
-        
+		if (LibraryModel.getRecentlyPlayedSongs().size() > RECENT_SONGS_LIMIT) {
+			LibraryModel.removeRecentlyPlayedSong(RECENT_SONGS_LIMIT);
+		}
+	}
+
+	private static void updateRecentlyPlayedAlbums(SongModel song) {
+		AlbumModel album = getAlbum(song.getAlbum());
+
 		LibraryModel.removeRecentlyPlayedAlbum(album);
-        LibraryModel.addToRecentlyPlayedAlbums(album);
-        
-        if (LibraryModel.getRecentlyPlayedAlbums().size() > RECENT_ALBUMS_LIMIT) {
-            LibraryModel.removeRecentlyPlayedAlbum(RECENT_ALBUMS_LIMIT);
-        }
-    }
+		LibraryModel.addToRecentlyPlayedAlbums(album);
 
-    private static void updateRecentlyPlayedArtists(SongModel song) {
-        ArtistModel artist = getArtist(song.getArtist());
-		
+		if (LibraryModel.getRecentlyPlayedAlbums().size() > RECENT_ALBUMS_LIMIT) {
+			LibraryModel.removeRecentlyPlayedAlbum(RECENT_ALBUMS_LIMIT);
+		}
+	}
+
+	private static void updateRecentlyPlayedArtists(SongModel song) {
+		ArtistModel artist = getArtist(song.getArtist());
+
 		LibraryModel.removeRecentlyPlayedArtist(artist);
-        LibraryModel.addToRecentlyPlayedArtists(artist);
-        
-        if (LibraryModel.getRecentlyPlayedArtists().size() > RECENT_ARTISTS_LIMIT) {
+		LibraryModel.addToRecentlyPlayedArtists(artist);
+
+		if (LibraryModel.getRecentlyPlayedArtists().size() > RECENT_ARTISTS_LIMIT) {
 			LibraryModel.removeRecentlyPlayedArtist(RECENT_ARTISTS_LIMIT);
-        }
-    }
+		}
+	}
 
 	public static AlbumModel getAlbum(String albumName) {
 		List<SongModel> songs = LibraryModel.getSongs().stream().filter(
-			song -> song.getAlbum().toLowerCase().equals(albumName.toLowerCase())
-		).collect(Collectors.toList());
-		sortSongs(songs, SortType.NAME, false); //Mirar para poder organizar las canciones.
+				song -> song.getAlbum().toLowerCase().equals(albumName.toLowerCase())).collect(Collectors.toList());
+		sortSongs(songs, SortType.NAME, false); // Mirar para poder organizar las canciones.
 
 		AlbumModel album = new AlbumModel(albumName, songs.get(0).getArtist());
 		album.setSongs(songs);
@@ -236,11 +256,11 @@ public class LibraryLogic {
 
 	public static ArtistModel getArtist(String artistName) {
 		List<SongModel> songs = LibraryModel.getSongs().stream().filter(
-			song -> song.getArtist().equals((artistName))
-		).collect(Collectors.toList());
+				song -> song.getArtist().equals((artistName))).collect(Collectors.toList());
 		sortSongs(songs, SortType.NAME, false);
 
-		List<String> albums = songs.stream().map(SongModel::getAlbum).toList();
+		// List<String> albums = songs.stream().map(SongModel::getAlbum).collect(Collectors.toList());
+		List<AlbumModel> albums = getAlbumsByArtist(artistName);
 
 		ArtistModel artirt = new ArtistModel(artistName, "");
 		artirt.setSongs(songs);

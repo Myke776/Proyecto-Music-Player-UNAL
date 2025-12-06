@@ -1,34 +1,43 @@
-package musicfun.ui.components;
-
+package musicfun.ui.component;
 
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
+import musicfun.ui.layout.SizeConstraints;
 
 public class ContainerImageTitleText extends GridPane {
 	private final ImageView COVER_VIEW = new ImageView();
 	private final Label TITLE = new Label();
 	private final Label TEXT = new Label();
 
-	public ContainerImageTitleText(Image image, double imageSize, String title, String text, Orientation orientation) {
+	public ContainerImageTitleText(Image image, SizeConstraints imageSize, String title, String text,
+			Orientation orientation) {
 		super();
 
 		this.setTitle(title);
 		this.setImage(image);
 		this.setArtist(text);
 
-		this.COVER_VIEW.setFitHeight(imageSize);
-		this.COVER_VIEW.setFitWidth(imageSize);
+		this.COVER_VIEW.setFitHeight(imageSize.getPrefHeight());
+		this.COVER_VIEW.setFitWidth(imageSize.getPrefWidth());
 		this.COVER_VIEW.setPreserveRatio(true);
+		this.COVER_VIEW.setSmooth(true);
 
-		if(orientation == Orientation.HORIZONTAL) {
+		double radius = 20;
+		Rectangle clip = new Rectangle(imageSize.getPrefWidth(), imageSize.getPrefHeight());
+		clip.setArcWidth(radius);
+		clip.setArcHeight(radius);
+		this.COVER_VIEW.setClip(clip);
+
+		if (orientation == Orientation.HORIZONTAL) {
 			setHorizontal();
-		}else {
+		} else {
 			setVertical();
-			TITLE.setMaxWidth(imageSize);
-			TEXT.setMaxWidth(imageSize);
+			TITLE.setMaxWidth(imageSize.getPrefWidth());
+			TEXT.setMaxWidth(imageSize.getPrefWidth());
 		}
 		super.getChildren().addAll(COVER_VIEW, TITLE, TEXT);
 
@@ -37,20 +46,20 @@ public class ContainerImageTitleText extends GridPane {
 		super.getStyleClass().add("container-image-title-artist");
 	}
 
-	public ContainerImageTitleText(double imageSize, Orientation orientation) {
+	public ContainerImageTitleText(SizeConstraints imageSize, Orientation orientation) {
 		this(null, imageSize, "", "", orientation);
 	}
 
-	public ContainerImageTitleText(double imageSize) {
+	public ContainerImageTitleText(SizeConstraints imageSize) {
 		this(null, imageSize, "", "", Orientation.HORIZONTAL);
 	}
 
 	public ContainerImageTitleText(Orientation orientation) {
-		this(null, 40, "", "", orientation);
+		this(null, new SizeConstraints(40), "", "", orientation);
 	}
 
 	public ContainerImageTitleText() {
-		this(40, Orientation.HORIZONTAL);
+		this(new SizeConstraints(40), Orientation.HORIZONTAL);
 	}
 
 	private void setHorizontal() {
@@ -73,10 +82,11 @@ public class ContainerImageTitleText extends GridPane {
 	}
 
 	public void setOrientation(Orientation orientation) {
-		//ver si funciona, posiblemente se necesite borrar los elementos en la clase de los hijos y volver agregarlos.
-		if(orientation == Orientation.HORIZONTAL) {
+		// ver si funciona, posiblemente se necesite borrar los elementos en la clase de
+		// los hijos y volver agregarlos.
+		if (orientation == Orientation.HORIZONTAL) {
 			setHorizontal();
-		}else {
+		} else {
 			setVertical();
 		}
 	}
