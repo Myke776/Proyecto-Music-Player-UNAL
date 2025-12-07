@@ -1,10 +1,10 @@
 package musicfun.ui.views;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import musicfun.App;
+import musicfun.logic.SettingsLogic;
+import musicfun.model.SettingsModel;
 import musicfun.ui.model.navigation.SceneInfo;
 
 public class Settings extends SceneInfo<VBox> {
@@ -18,18 +18,17 @@ public class Settings extends SceneInfo<VBox> {
 	protected void initializeUI(VBox scene) {
 		scene.setSpacing(20);
 		scene.setPadding(new Insets(40));
-		scene.setAlignment(Pos.CENTER);
-		// scene.setStyle("-fx-background-color: #ffffff;");
+		// scene.setAlignment(Pos.CENTER);
 
-		Label title = new Label("Esto es Settings");
-		title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
+		Label title = new Label("Settings");
+		title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #ffffffff;");
+		ListView<String> folders = new ListView<>(SettingsModel.getFolders());
+		Button addfolder = new Button("Add folder");
 
-		Button startButton = new Button("Ir a home");
-		startButton.setStyle(
-				"-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;");
-		startButton.setOnAction(event -> {
-			App.getNavigation().navigateTo("home");// probando navegacion
+		addfolder.setOnAction(__ -> {
+			SettingsLogic.addFolder();
 		});
-		scene.getChildren().addAll(title, startButton);
+
+		scene.getChildren().addAll(title, folders, addfolder);
 	}
 }

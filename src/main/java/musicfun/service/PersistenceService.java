@@ -80,6 +80,19 @@ public class PersistenceService {
 		}
 	}
 
+	public void saveFolders(List<String> folders) throws IOException{
+		Path targetPath = getAppDataPath(FOLDERS_FILE);
+
+		try (BufferedWriter writer = Files.newBufferedWriter(targetPath)) {
+			// writer.write("id,name,description,createdDate,modifiedDate,songIds\n");
+			for (String folder : folders) {
+				writer.write(folder);
+				writer.newLine();
+			}
+			writer.flush();
+		}
+	}
+
 	private File getFile(String resourcePath, String fileName) throws IOException {
 		Path targetPath = getAppDataPath(fileName);
 
