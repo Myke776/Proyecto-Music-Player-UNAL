@@ -1,5 +1,7 @@
 package musicfun.model;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -33,6 +35,10 @@ public class LibraryModel {
 		if (!playlists.contains(playlist)) {
 			playlists.add(playlist);
 		}
+	}
+
+	public static void setPlaylist(List<PlaylistModel> playlist) {
+		playlists.setAll(playlist);
 	}
 
 	public static ObservableList<PlaylistModel> getPlaylists() {

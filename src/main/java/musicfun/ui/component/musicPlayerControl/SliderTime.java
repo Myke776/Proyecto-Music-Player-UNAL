@@ -6,8 +6,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
-import musicfun.logic.MusicPlayerLogic;
 import musicfun.model.PlayerStateModel;
+import musicfun.logic.MusicPlayerLogic;
 import musicfun.service.SongService;
 
 public class SliderTime extends HBox {

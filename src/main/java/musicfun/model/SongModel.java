@@ -26,6 +26,7 @@ public class SongModel {
 		this.year = year;
 		this.cover = cover;
 		this.creationDateTime = creationDateTime;
+		System.out.println(getFormattedCreationDateTime());
 	}
 
 	public SongModel(String filePath) {

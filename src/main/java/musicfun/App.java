@@ -1,13 +1,11 @@
 package musicfun;
 
-
-import java.util.List;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import musicfun.logic.LibraryLogic;
+// import musicfun.logic.LibraryLogic;
+import musicfun.logic.SettingsLogic;
 import musicfun.ui.NavigationRoot;
 import musicfun.ui.component.GridLayoutManager;
 import musicfun.ui.model.navigation.NavigationManager;
@@ -17,15 +15,7 @@ public class App extends Application {
 	private static NavigationManager navigationRoot;
 	@Override
 	public void init() {
-		// Este se ejecuta junto con la clase Application o constructor, sirve para
-		// validacion o carga de datos, no interfaz
-
-		// musicPlayerLogic = new MusicPlayerLogic(new PlayerStateModel());
-		LibraryLogic.setFolders(List.of(
-			"C:\\Users\\Oscar\\Downloads"
-		// , "C:\\Users\\Oscar\\Documents"
-		));
-		LibraryLogic.scanFolder();
+		SettingsLogic.updateAll();
 	}
 
 	@Override
@@ -45,6 +35,7 @@ public class App extends Application {
 	@Override
 	public void stop() {
 		// Se ejecuta cuando se cierra la app.
+		SettingsLogic.saveAll();
 	}
 
 	public static NavigationManager getNavigation() {

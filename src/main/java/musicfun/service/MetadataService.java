@@ -1,6 +1,5 @@
 package musicfun.service;
 
-import musicfun.model.SongModel;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -12,6 +11,8 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.images.Artwork;
+
+import musicfun.model.SongModel;
 
 public class MetadataService {
 	public SongModel readMetadata(String rute) {

@@ -13,10 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import musicfun.logic.LibraryLogic;
-import musicfun.logic.PlaylistLogic;
 import musicfun.model.PlaylistModel;
 import musicfun.model.SongModel;
+import musicfun.logic.LibraryLogic;
+import musicfun.logic.PlaylistLogic;
 import musicfun.ui.model.Modal;
 
 public class AddSongToPlaylist extends Modal {

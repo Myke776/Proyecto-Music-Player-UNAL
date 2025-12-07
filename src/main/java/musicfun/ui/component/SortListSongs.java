@@ -5,9 +5,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
+import musicfun.model.SongModel;
 import musicfun.logic.LibraryLogic;
 import musicfun.logic.LibraryLogic.SortType;
-import musicfun.model.SongModel;
 
 public class SortListSongs extends ChoiceBox<String> {
 	public SortListSongs(List<SongModel> songs) {

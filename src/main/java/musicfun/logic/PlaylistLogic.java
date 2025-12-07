@@ -1,12 +1,12 @@
 package musicfun.logic;
 
-import musicfun.model.LibraryModel;
-import musicfun.model.PlaylistModel;
-import musicfun.model.SongModel;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import musicfun.model.LibraryModel;
+import musicfun.model.PlaylistModel;
+import musicfun.model.SongModel;
 
 public class PlaylistLogic {
 	private static ObservableList<PlaylistModel> playlists = LibraryModel.getPlaylists();

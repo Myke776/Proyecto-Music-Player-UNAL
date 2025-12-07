@@ -1,7 +1,7 @@
 package musicfun.ui.component.musicPlayerControl;
 
-import musicfun.logic.MusicPlayerLogic;
 import musicfun.model.PlayerStateModel;
+import musicfun.logic.MusicPlayerLogic;
 import musicfun.ui.component.ButtonImage;
 
 public class ShuffleMode extends ButtonImage {

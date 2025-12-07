@@ -8,7 +8,6 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import musicfun.logic.LibraryLogic;
 import musicfun.model.AlbumModel;
 import musicfun.model.ArtistModel;

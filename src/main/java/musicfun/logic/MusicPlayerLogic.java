@@ -1,8 +1,5 @@
 package musicfun.logic;
 
-import musicfun.model.PlayerStateModel;
-import musicfun.model.SongModel;
-
 import java.io.File;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import musicfun.model.PlayerStateModel;
+import musicfun.model.SongModel;
 
 public class MusicPlayerLogic {
 	private static MediaPlayer mediaPlayer;

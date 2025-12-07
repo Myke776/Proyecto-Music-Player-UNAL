@@ -84,6 +84,12 @@ public class LibraryLogic {
 				.collect(Collectors.toList());
 	}
 
+	public static SongModel getSongsByFilePath(String filepath) {
+		return LibraryModel.getSongs().stream()
+				.filter(song -> song.getFilePath().equalsIgnoreCase(filepath))
+				.findFirst().orElse(null);
+	}
+
 	public static List<SongModel> getRecentlyAddedSongs(int limit) {
 		List<SongModel> allSongs = LibraryModel.getSongs();
 		List<SongModel> recentlyAdded = new ArrayList<>(allSongs);

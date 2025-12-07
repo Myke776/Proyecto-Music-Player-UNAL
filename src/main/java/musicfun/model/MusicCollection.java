@@ -15,10 +15,13 @@ public abstract class MusicCollection {
 		this.name = name;
 		this.description = description;
 		this.songs = songs;
+		if(cover == null && songs.size() > 0){
+			this.cover = songs.get(0).getCover();
+		}
 	}
 
 	public MusicCollection(String name, String description) {
-		this(name, description, null);
+		this(name, description, FXCollections.observableArrayList());
 		this.songs = FXCollections.observableArrayList();
 	}
 
