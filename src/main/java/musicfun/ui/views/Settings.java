@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import musicfun.logic.SettingsLogic;
 import musicfun.model.SettingsModel;
+import musicfun.ui.component.listView.ListFolder;
 import musicfun.ui.model.navigation.SceneInfo;
 
 public class Settings extends SceneInfo<VBox> {
@@ -22,7 +23,8 @@ public class Settings extends SceneInfo<VBox> {
 
 		Label title = new Label("Settings");
 		title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #ffffffff;");
-		ListView<String> folders = new ListView<>(SettingsModel.getFolders());
+
+		ListFolder folders = new ListFolder(SettingsModel.getFolders());
 		Button addfolder = new Button("Add folder");
 
 		addfolder.setOnAction(__ -> {

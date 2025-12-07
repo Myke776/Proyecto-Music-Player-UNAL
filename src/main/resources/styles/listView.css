@@ -48,7 +48,7 @@
     -fx-text-alignment: center;
 }
 
-.list-cell .button {
+.list-cell > .button {
 	-fx-background-color: #ffffff00;
 }
 .list-cell button:hover {
