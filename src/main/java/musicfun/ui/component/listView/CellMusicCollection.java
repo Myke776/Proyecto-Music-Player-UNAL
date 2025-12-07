@@ -4,15 +4,15 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import musicfun.App;
 import musicfun.model.AlbumModel;
-import musicfun.model.MusicCollection;
+import musicfun.model.MusicCollectionModel;
 import musicfun.service.SongService;
 import musicfun.ui.component.ContainerImageTitleText;
 
-public class CellMusicCollection <Collection extends MusicCollection> extends ListCell<Collection> {
+public class CellMusicCollection <Collection extends MusicCollectionModel> extends ListCell<Collection> {
 	private HBox contentMain = new HBox(10);
 	private ContainerImageTitleText containerTitleAndArtist;
 
-	public CellMusicCollection(CellParams<Collection> cellparams) {
+	public CellMusicCollection(ParamsCell cellparams) {
 		// this(parentList, sizeImage, orientationCell, null);
 		containerTitleAndArtist = new ContainerImageTitleText(cellparams.getSizeImage(), cellparams.getOrientation());
 		this.contentMain.getChildren().addAll(this.containerTitleAndArtist);

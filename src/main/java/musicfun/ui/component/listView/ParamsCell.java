@@ -1,38 +1,35 @@
 package musicfun.ui.component.listView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.input.MouseEvent;
 import musicfun.ui.layout.SizeConstraints;
 
-public class CellParams <TypeElement extends Object> {
+public class ParamsCell {
 	private Orientation orientation;
 	private SizeConstraints sizeCell;
 	private SizeConstraints sizeImage;
 	private EventHandler<? super MouseEvent> event;
-	private List<TypeElement> list;
+	private String idPlaylist;
 
-	public CellParams(Orientation orientation, SizeConstraints sizeCell, SizeConstraints siceImage,
-			EventHandler<? super MouseEvent> event, List<TypeElement> list) {
+	public ParamsCell(Orientation orientation, SizeConstraints sizeCell, SizeConstraints siceImage,
+			EventHandler<? super MouseEvent> event, String idPlaylist) {
 		this.orientation = orientation;
 		this.sizeCell = sizeCell;
 		this.sizeImage = siceImage;
 		this.event = event;
-		this.list = list;
+		this.idPlaylist = idPlaylist;
 	}
 
-	public CellParams(Orientation orientation, SizeConstraints sizeCell, SizeConstraints sizeImage) {
-		this(orientation, sizeCell, sizeImage, null, new ArrayList<>());
+	public ParamsCell(Orientation orientation, SizeConstraints sizeCell, SizeConstraints sizeImage) {
+		this(orientation, sizeCell, sizeImage, null,  null);
 	}
 
-	public CellParams(Orientation orientation, SizeConstraints sizeCell) {
+	public ParamsCell(Orientation orientation, SizeConstraints sizeCell) {
 		this(orientation, sizeCell, new SizeConstraints(40, 40));
 	}
 
-	public CellParams() {
+	public ParamsCell() {
 		this(Orientation.HORIZONTAL, new SizeConstraints());
 	}
 
@@ -52,8 +49,8 @@ public class CellParams <TypeElement extends Object> {
 		return event;
 	}
 
-	public List<TypeElement> getList() {
-		return list;
+	public String getIdPlayList() {
+		return this.idPlaylist;
 	}
 
 	public void setOrientation(Orientation orientation) {
@@ -72,7 +69,7 @@ public class CellParams <TypeElement extends Object> {
 		this.event = event;
 	}
 
-	public void setList(List<TypeElement> list) {
-		this.list = list;
+	public void setIdPlayList(String idPlaylist) {
+		this.idPlaylist = idPlaylist;
 	}
 }

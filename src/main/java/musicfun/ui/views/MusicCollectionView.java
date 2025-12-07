@@ -8,25 +8,27 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import musicfun.model.AlbumModel;
 import musicfun.model.ArtistModel;
-import musicfun.model.MusicCollection;
-import musicfun.model.SongModel;
+import musicfun.model.MusicCollectionModel;
+import musicfun.model.PlaylistModel;
 import musicfun.service.SongService;
 import musicfun.ui.component.listView.ListMusicCollection;
 import musicfun.ui.component.listView.ListSong;
+import musicfun.ui.component.listView.ParamsCell;
 import musicfun.ui.model.navigation.SceneInfo;
 
 public class MusicCollectionView extends SceneInfo<ScrollPane> {
 	private ImageView coverView;
 	private Label name;
 	private Label description;
-	private ObservableList<SongModel> listSongs;
 	private ObservableList<AlbumModel> listAlbums;
+	private ParamsCell cellParams;
+	private StackPane containerSongs;
 
 	private VBox containerAlbums;
-
 
 	public MusicCollectionView() {
 		super("MusicCollection", "", "musicCollection", false, false, new ScrollPane());
@@ -35,14 +37,14 @@ public class MusicCollectionView extends SceneInfo<ScrollPane> {
 	@Override
 	protected void initializeUI(ScrollPane scene_p) {
 		VBox scene = new VBox();
-		this.listSongs = FXCollections.observableArrayList();
 		this.listAlbums = FXCollections.observableArrayList();
 
 		this.coverView = new ImageView();
 		this.name = new Label("Name Music Collection");
 		this.description = new Label();
+		this.cellParams = new ParamsCell();
+		this.containerSongs = new StackPane();
 
-		ListSong songs = new ListSong(listSongs);
 		ListMusicCollection<AlbumModel> albums = new ListMusicCollection<>(listAlbums);
 		albums.setOrientation(Orientation.HORIZONTAL);
 
@@ -55,7 +57,7 @@ public class MusicCollectionView extends SceneInfo<ScrollPane> {
 		GridPane.setConstraints(description, 1, 1, 1, 1);
 
 		grid.getChildren().addAll(coverView, name, description);
-		scene.getChildren().addAll(grid, songs, containerAlbums);
+		scene.getChildren().addAll(grid, containerSongs, containerAlbums);
 
 		coverView.setFitWidth(300);
 		coverView.setFitHeight(300);
@@ -66,21 +68,41 @@ public class MusicCollectionView extends SceneInfo<ScrollPane> {
 
 	@Override
 	public <TypeParam> void setParams(TypeParam param) {
-		if(param instanceof MusicCollection) {
-			MusicCollection musicCollection = (MusicCollection)param;
+		if (param instanceof MusicCollectionModel) {
+			MusicCollectionModel musicCollection = (MusicCollectionModel) param;
 			coverView.setImage(SongService.getImage(musicCollection.getCover()));
-			name.setText(musicCollection.getClass().getSimpleName().replaceAll("Model", "") + ": " + musicCollection.getName());
+			name.setText(musicCollection.getClass().getSimpleName().replaceAll("Model", "") + ": "
+					+ musicCollection.getName());
 			description.setText(musicCollection.getDescription());
-			listSongs.setAll(musicCollection.getSongs());
 
-			if(musicCollection instanceof ArtistModel) {
+			if (musicCollection instanceof ArtistModel) {
 				ArtistModel artist = (ArtistModel) musicCollection;
 				listAlbums.setAll(artist.getAlbums());
 				containerAlbums.setVisible(true);
 				containerAlbums.setMaxHeight(120);
-			}else{
+			} else {
 				containerAlbums.setVisible(false);
 				containerAlbums.setMaxHeight(0);
+			}
+
+			cellParams.setIdPlayList(null);
+			if (musicCollection instanceof PlaylistModel) {
+				PlaylistModel playlist = (PlaylistModel) musicCollection;
+				cellParams.setIdPlayList(playlist.getId());
+			}
+
+			int sizeList = containerSongs.getChildren().size();
+			boolean isSame = false;
+
+			if (sizeList > 0) {
+				ListSong songsC = (ListSong) containerSongs.getChildren().getFirst();
+				isSame = musicCollection.getSongs().equals(songsC.getItems());
+			}
+
+			if (!isSame) {
+				ListSong songs = new ListSong(musicCollection.getSongs(), cellParams);
+				containerSongs.getChildren().clear();
+				containerSongs.getChildren().add(songs);
 			}
 		}
 	}

@@ -5,13 +5,13 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public abstract class MusicCollection {
+public abstract class MusicCollectionModel {
 	private byte[] cover;
 	protected String name;
 	protected String description;
 	protected ObservableList<SongModel> songs;
 
-	public MusicCollection(String name, String description, ObservableList<SongModel> songs) {
+	public MusicCollectionModel(String name, String description, ObservableList<SongModel> songs) {
 		this.name = name;
 		this.description = description;
 		this.songs = songs;
@@ -20,20 +20,20 @@ public abstract class MusicCollection {
 		}
 	}
 
-	public MusicCollection(String name, String description) {
+	public MusicCollectionModel(String name, String description) {
 		this(name, description, FXCollections.observableArrayList());
 		this.songs = FXCollections.observableArrayList();
 	}
 
-	public MusicCollection(String name, ObservableList<SongModel> songs) {
+	public MusicCollectionModel(String name, ObservableList<SongModel> songs) {
 		this(name, "", songs);
 	}
 
-	public MusicCollection(String name) {
+	public MusicCollectionModel(String name) {
 		this(name, "");
 	}
 
-	public MusicCollection() {
+	public MusicCollectionModel() {
 		this("Unknown");
 	}
 
@@ -147,7 +147,7 @@ public abstract class MusicCollection {
 			return true;
 		if (obj == null || obj.getClass() != this.getClass())
 			return false;
-		MusicCollection obj2 = (MusicCollection) obj;
+		MusicCollectionModel obj2 = (MusicCollectionModel) obj;
 		return obj2.getName().toLowerCase().equals(this.getName().toLowerCase());
 	}
 }

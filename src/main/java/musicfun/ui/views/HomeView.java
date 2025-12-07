@@ -13,7 +13,7 @@ import musicfun.model.AlbumModel;
 import musicfun.model.ArtistModel;
 import musicfun.model.LibraryModel;
 import musicfun.model.SongModel;
-import musicfun.ui.component.listView.CellParams;
+import musicfun.ui.component.listView.ParamsCell;
 import musicfun.ui.component.listView.ListMusicCollection;
 import musicfun.ui.component.listView.ListSong;
 import musicfun.ui.layout.SizeConstraints;
@@ -35,7 +35,8 @@ public class HomeView extends SceneInfo<VBox> {
 		ObservableList<AlbumModel> recentlyPlayedAlbums = LibraryModel.getRecentlyPlayedAlbums();
 		ObservableList<ArtistModel> recentlyPlayedArtist = LibraryModel.getRecentlyPlayedArtists();
 		Label labelAddedSongs = new Label("Recently added songs.");
-		CellParams<SongModel> cellparams = new CellParams<>(Orientation.VERTICAL, new SizeConstraints(), new SizeConstraints(100));
+
+		ParamsCell cellparams = new ParamsCell(Orientation.VERTICAL, new SizeConstraints(), new SizeConstraints(100));
 		ListSong recentlyAddedSongsList = new ListSong(recentlyAddedSongs, cellparams);
 		recentlyAddedSongsList.setOrientation(Orientation.HORIZONTAL);
 		recentlyAddedSongsList.setMinHeight(220);

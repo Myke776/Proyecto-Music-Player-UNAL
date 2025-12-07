@@ -1,7 +1,7 @@
 /* MAin scene */
 
 .scene {
-	-fx-background-color: linear-gradient(to bottom, #311C40, #170E1F);
+	-fx-background-color: linear-gradient(to bottom, #311c40, #170e1f);
 }
 .scene Text {
 	-fx-fill: #f0f0f0;
@@ -24,44 +24,43 @@
 
 .button {
 	-fx-cursor: hand;
-    -fx-background-color: #36363680;
+	-fx-background-color: #36363680;
 	-fx-fill: #ffffff;
 	-fx-text-fill: #ffffff;
 }
 
 .button:hover {
-    -fx-background-color: #363636c6;
+	-fx-background-color: #363636c6;
 }
-
 
 /* ChoiceBox */
 .choice-box {
-    -fx-background-color: #36363680;
-    -fx-text-fill: rgb(0, 0, 0);
-    -fx-font-size: 14px;
-    -fx-padding: 5px;
-    -fx-background-radius: 8;
+	-fx-background-color: #36363680;
+	-fx-text-fill: rgb(0, 0, 0);
+	-fx-font-size: 14px;
+	-fx-padding: 5px;
+	-fx-background-radius: 8;
 }
 
-.choice-box .context-menu  {
-    -fx-background-color: #000000;
+.choice-box .context-menu {
+	-fx-background-color: #000000;
 	-fx-background-radius: 5;
-    -fx-text-fill: rgb(255, 255, 255);
-    -fx-font-size: 13px;
+	-fx-text-fill: rgb(255, 255, 255);
+	-fx-font-size: 13px;
 	-fx-cursor: hand;
 }
 
 .choice-box .menu-item {
-    -fx-background-color: #00000000;
-    -fx-text-fill: rgb(255, 255, 255);
+	-fx-background-color: #00000000;
+	-fx-text-fill: rgb(255, 255, 255);
 }
 
 .choice-box .menu-item:hover {
-    -fx-background-color: #171717;
+	-fx-background-color: #171717;
 }
 /* CheckBox */
 .check-box {
-    -fx-text-fill: rgb(255, 255, 255);
+	-fx-text-fill: rgb(255, 255, 255);
 }
 
 /* ScrollPane */
@@ -69,26 +68,48 @@
 .scroll-pane,
 .scroll-pane .viewport,
 .scroll-pane .content {
-    -fx-background-color: transparent;
+	-fx-background-color: transparent;
 }
 
 /**************************/
 /* Estilo para scrollbar */
 /************************/
-.scroll-bar:vertical, .scroll-bar:horizontal {
-    -fx-background-color: transparent;
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+	-fx-background-color: transparent;
 }
 .thumb {
-    -fx-background-color: #444;
-    -fx-background-radius: 4px;
+	-fx-background-color: #444;
+	-fx-background-radius: 4px;
 }
 .thumb:hover {
-    -fx-background-color: #666;
+	-fx-background-color: #666;
 }
 
-/*  */
+/**************************/
+/* Menu */
+/************************/
+.context-menu {
+	-fx-background-color: #2b2b2b;
+	-fx-background-radius: 5px;
+	-fx-border-color: #444;
+	-fx-border-width: 1px;
+	-fx-border-radius: 5px;
+	-fx-padding: 5px 0;
+}
 
-.image-view {
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
+.menu-item {
+	-fx-background-color: transparent;
+	-fx-padding: 8px 20px;
+	-fx-cursor: hand;
+}
+
+.menu-item:hover {
+	-fx-background-color: #373737;
+}
+
+.menu-item .label {
+	-fx-text-fill: #e0e0e0;
+	-fx-font-size: 13px;
+	-fx-font-family: "Segoe UI", Arial, sans-serif;
 }

@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import javafx.collections.ObservableList;
 
-public class PlaylistModel extends MusicCollection {
+public class PlaylistModel extends MusicCollectionModel {
 	private String id;
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;

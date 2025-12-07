@@ -51,7 +51,7 @@
 .list-cell > .button {
 	-fx-background-color: #ffffff00;
 }
-.list-cell button:hover {
+.list-cell > button:hover {
 	-fx-scale-x: 1.2;
 	-fx-scale-y: 1.2;
 	-fx-background-color: #ffffff32;

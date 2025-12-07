@@ -53,6 +53,13 @@ public class PlaylistLogic {
 		playlist.removeSong(song);
 	}
 
+	public static void removeSongFromPlaylist(String idPlaylist, SongModel song) {
+		PlaylistModel playlist = getPlaylistById(idPlaylist);
+		if(playlist != null){
+			playlist.removeSong(song);
+		}
+	}
+
 	public static void reorderPlaylistSongs(PlaylistModel playlist, int fromIndex, int toIndex) {
 		List<SongModel> songs = playlist.getSongs();
 		if (fromIndex >= 0 && fromIndex < songs.size() &&

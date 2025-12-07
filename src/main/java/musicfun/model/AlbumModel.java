@@ -1,6 +1,6 @@
 package musicfun.model;
 
-public class AlbumModel extends MusicCollection {
+public class AlbumModel extends MusicCollectionModel {
 	private String artist;
 	private int year;
 	private String genre;
